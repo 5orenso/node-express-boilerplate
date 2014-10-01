@@ -31,6 +31,14 @@ web_router.set_config = function (conf, opt) {
     }
 };
 
+function redirectSlash (req, res, next) {
+    if (req.url.match(/^\/$/)) {
+        res.redirect(301, '/index.html');
+    } else {
+        next();
+    }
+}
+
 web_router.use(function(req, res, next) {
     logger.log('info',
         req.method,
@@ -41,9 +49,9 @@ web_router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-web_router.use('/', express.static(app_path + 'template/current/index.html'));
+web_router.use(redirectSlash);
+//web_router.use('/', express.static(app_path + 'template/current/index.html'));
 web_router.use('/index.html', express.static(app_path + 'template/current/index.html'));
-
 web_router.use('/js/', express.static(app_path + 'template/current/js/'));
 web_router.use('/img/', express.static(app_path + 'template/current/img/'));
 web_router.use('/css/', express.static(app_path + 'template/current/css/'));

@@ -10,6 +10,7 @@ var path = require('path'),
     commander = require('commander'),
     express = require('express'),
     bodyParser = require('body-parser'),
+    compression = require('compression'),
     app_path = path.normalize(__dirname + '/../');
 
 commander
@@ -21,14 +22,16 @@ var logger = require(app_path + 'lib/logger')({
     log_level : config.log_level
 });
 
-
 var app = express();
 app.use(bodyParser.json());
+app.use(compression({
+    threshold: 512
+}));
 
 var web_router = require('./routes/web');
+web_router.set_config(config);
 app.use('/', web_router);
 
 // Start the server -------------------------------
 var server = app.listen(config.app.port);
 logger.log('info', 'Something happens on port ' + config.app.port);
-

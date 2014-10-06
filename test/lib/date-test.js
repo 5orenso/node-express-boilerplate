@@ -27,7 +27,7 @@ buster.testCase('lib/logger', {
             var d = new Date(sec);
             var iso_date_format = date.iso_date(d);
             assert.match(iso_date_format, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[\+\-]\d{2}:\d{2}/);
-            assert.match(iso_date_format, /2014-10-06T14:18:16.000\+\d{2}:\d{2}/);
+            assert.match(iso_date_format, /2014-10-06T\d{2}:18:16.000\+\d{2}:\d{2}/);
         }
     }
 });

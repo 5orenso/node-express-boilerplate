@@ -20,7 +20,6 @@ if (cluster.isMaster) {
 
 } else {
     // Code to run if we're in a worker process
-
     var path = require('path'),
         commander = require('commander'),
         express = require('express'),
@@ -49,8 +48,6 @@ if (cluster.isMaster) {
     // Start the server -------------------------------
     var server = app.listen(config.app.port);
     logger.log('info', 'Something happens on port ' + config.app.port);
-
-
 }
 
 // Listen for dying workers

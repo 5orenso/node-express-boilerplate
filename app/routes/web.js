@@ -39,6 +39,9 @@ function redirectSlash (req, res, next) {
     }
 }
 
+web_router.use(express.query()); // Parse query_string.
+//app.use(Express.cookieParser(opt.cookie.secret)); // Parse cookies.
+
 web_router.use(function(req, res, next) {
     logger.log('info',
         req.method,
@@ -50,7 +53,6 @@ web_router.use(function(req, res, next) {
 });
 
 web_router.use(redirectSlash);
-//web_router.use('/', express.static(app_path + 'template/current/index.html'));
 web_router.use('/index.html', express.static(app_path + 'template/current/index.html'));
 web_router.use('/js/', express.static(app_path + 'template/current/js/'));
 web_router.use('/img/', express.static(app_path + 'template/current/img/'));

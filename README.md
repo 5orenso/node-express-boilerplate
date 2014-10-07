@@ -26,7 +26,3 @@ In addition to this I recommend using Grunt to watch your files and perform code
 
 Now, go ahead and add modules into the ./app/routes/web.js or add more routes to the ./app/server.js file.
 
-
-It's safe to stop reading and start developing now :) If you are up to the gory details please continue.
-A small boilerplate to help you kickstart your projects with unit tests, integration tests and code coverage.
-

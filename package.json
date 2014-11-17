@@ -23,7 +23,8 @@
     "grunt-shell": "~0.6.4",
     "grunt-buster": "~0.3.1",
     "buster": "~0.7.8",
-    "request": "~2.45.0"
+    "request": "~2.45.0",
+    "buster-istanbul": "~0.1.10"
   },
   "keywords": [],
   "dependencies": {

@@ -29,7 +29,8 @@ app.use(compression({
 }));
 
 var web_router = require('./routes/web');
-web_router.set_config(config);
+web_router.set_config(config, {});
+
 app.use('/', web_router);
 
 // Start the server -------------------------------

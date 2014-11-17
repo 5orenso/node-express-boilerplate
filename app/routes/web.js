@@ -6,6 +6,7 @@
  */
 'use strict';
 var express       = require('express'),
+    morgan        = require('morgan'),
     when          = require('when'),
     _             = require('underscore'),
     swig          = require('swig'),
@@ -15,7 +16,7 @@ var express       = require('express'),
     template_path = path.normalize(app_path + 'template/current'),
     logger        = require(app_path + 'lib/logger')();
 
-var config;
+var stats, activeConn, histogram, timer, config;
 var web_router = express.Router();
 web_router.set_config = function (conf, opt) {
     web_router.config = conf;
@@ -37,6 +38,11 @@ function redirectSlash (req, res, next) {
 
 web_router.use(express.query()); // Parse query_string.
 //app.use(Express.cookieParser(opt.cookie.secret)); // Parse cookies.
+
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(app_path + '/logs/access.log', {flags: 'a'});
+// setup the logger
+web_router.use(morgan('combined', {stream: accessLogStream}));
 
 web_router.use(function(req, res, next) {
     logger.log('info',
@@ -60,16 +66,23 @@ web_router.use('/sitemap.xml', express.static(app_path + 'template/sitemap.xml')
 // Main route for html files.
 web_router.get('/*', function(req, res) {
     var request_pathname = req._parsedUrl.pathname;
+
+    // Stop timer when response is transferred and finish.
+    res.on('finish', function () {
+
+    });
+    // End metrics
+
     try {
         var tpl = swig.compileFile(template_path + request_pathname);
         res.send(tpl({
             title: 'Hello world',
-            query_string: req.query
+            query_string: req.query,
         }));
-
     } catch (err) {
         res.status(404).send('Page not found: ' + err);
-
     }
+
+
 });
 module.exports = web_router;

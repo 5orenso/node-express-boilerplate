@@ -5,5 +5,18 @@ config["My tests"] = {
     rootPath: "../",
     tests: [
         "test/**/*-test.js"
+    ],
+
+    // buster-istanbul setup
+    "buster-istanbul": {
+        outputDirectory: "coverage",
+        format: "lcov"
+    },
+    sources: [
+        "lib/**/**/*.js",
+        "app/routes/**/*.js"
+    ],
+    extensions: [
+        require('buster-istanbul')
     ]
 };

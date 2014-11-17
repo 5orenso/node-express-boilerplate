@@ -8,6 +8,16 @@ This time with a template engine, unit tests, integration tests, code coverage, 
 
 ## Getting started
 
+#### Prerequisite
+
+```bash
+$ npm install -g buster
+$ npm install -g grunt
+$ npm install -g istanbul
+```
+
+#### Clone repo and start server
+
 To run the server in development mode:
 ```bash
 git clone https://github.com/5orenso/node-express-boilerplate.git

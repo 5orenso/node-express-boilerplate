@@ -6,11 +6,12 @@
  */
 'use strict';
 
-var buster = require('buster'),
-    assert = buster.assert,
-    refute = buster.refute,
-    when   = require('when'),
-    date   = require('../../lib/date')({}, {});
+var buster  = require('buster'),
+    assert  = buster.assert,
+    refute  = buster.refute,
+    when    = require('when'),
+    libDate = require('../../lib/date'),
+    date    = new libDate({}, {});
 
 buster.testCase('lib/logger', {
     setUp: function () {
@@ -18,16 +19,16 @@ buster.testCase('lib/logger', {
     tearDown: function () {
     },
     'Date module:': {
-        'iso_date wo/input': function () {
-            var iso_date_format = date.iso_date();
-            assert.match(iso_date_format, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[\+\-]\d{2}:\d{2}/);
+        'isoDate wo/input': function () {
+            var isoDateFormat = date.isoDate();
+            assert.match(isoDateFormat, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+\-]\d{2}:\d{2}/);
         },
-        'iso_date w/input': function () {
-            var sec = 1412597896; //Date.parse("March 21, 2012") / 1000;
-            var d = new Date(sec);
-            var iso_date_format = date.iso_date(d);
-            assert.match(iso_date_format, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[\+\-]\d{2}:\d{2}/);
-            assert.match(iso_date_format, /2014-10-06T\d{2}:18:16.000\+\d{2}:\d{2}/);
+        'isoDate w/input': function () {
+            var msec = Date.parse('March 21, 2012') / 1000;
+            var d = new Date(msec);
+            var isoDateFormat = date.isoDate(d);
+            assert.match(isoDateFormat, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[\+\-]\d{2}:\d{2}/);
+            assert.match(isoDateFormat, /2012-03-21T00:00:00\+\d{2}:\d{2}/);
         }
     }
 });

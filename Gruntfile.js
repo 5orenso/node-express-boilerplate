@@ -20,10 +20,16 @@ module.exports = function (grunt) {
                 src: ['test/**/*.js']
             }
         },
+        jscs: {
+            main: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js'],
+            options: {
+                config: ".jscsrc"
+            }
+        },
         watch: {
             all: {
                 files: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js', 'config/*.js', 'template/**/*.html'],
-                tasks: ['jshint', 'buster:unit']
+                tasks: ['lint', 'buster:unit']
             }
         },
 
@@ -41,15 +47,35 @@ module.exports = function (grunt) {
             }
         },
         shell: {
+            getLatestTag: {
+                command: 'git describe --abbrev=0 --tags',
+                options: {
+                    callback: function (err, stdout, stderr, cb) {
+                        stdout = stdout.trim();
+                        // If we have a leading 'v' in the version, remove it
+                        if (stdout.substring(0, 1) === 'v') {
+                            stdout = stdout.substring(1);
+                        }
+                        console.log('Latest tag: ' + stdout);
+                        grunt.config.set('latestTag', stdout);
+                        console.log('s3cmd put artifact/' + stdout + '.tar.gz s3://node-express-boilerplate-releases/');
+                        console.log('');
+                        console.log('PS! Remember to upload a corresponding config tar-ball to s3://node-express-boilerplate-<purpose>-configs');
+                        cb();
+                    }
+                }
+            },
             multiple: {
                 command: [
                     'rm -rf artifact',
                     'mkdir -p artifact',
                     'mv node_modules ../node_modules2',
                     'npm install --production',
-                    'tar -zcf artifact/node-boilerplate.tar.gz .',
+                    'tar --exclude "./.git*" --exclude "./node_modules" --exclude "./test*" --exclude "./artifact" ' +
+                    '--exclude "./app/config/config*" --exclude "./.idea" --exclude "./dev" -zcf artifact/<%= latestTag %>.tar.gz .',
                     'rm -rf node_modules',
-                    'mv ../node_modules2 node_modules'
+                    'mv ../node_modules2 node_modules',
+                    'bash changelog.sh'
                 ].join('&&')
             }
         }
@@ -62,12 +88,15 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-buster');
+    grunt.loadNpmTasks("grunt-jscs");
+    grunt.loadNpmTasks('grunt-coveralls');
 
     // Default task.
-    grunt.registerTask('default', ['jshint', 'buster:unit']);
+    grunt.registerTask( "lint", [ "jshint", "jscs" ] );
+    grunt.registerTask('default', ['lint', 'buster:unit']);
     grunt.registerTask('test', 'buster:unit');
     grunt.registerTask('check', ['watch']);
     grunt.registerTask('run', ['buster:unit', 'nodemon:dev']);
-    grunt.registerTask('artifact', ['shell']);
+    grunt.registerTask('artifact', ['shell', 'coveralls:real_coverage']);
 
 };

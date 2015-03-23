@@ -78,6 +78,11 @@ module.exports = function (grunt) {
                     'bash changelog.sh'
                 ].join('&&')
             }
+        },
+        coveralls: {
+            real_coverage: {
+                src: 'coverage/lcov.info'
+            }
         }
     });
 

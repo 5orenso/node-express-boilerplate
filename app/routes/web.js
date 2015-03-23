@@ -12,15 +12,16 @@ var express       = require('express'),
     swig          = require('swig'),
     fs            = require('fs'),
     path          = require('path'),
-    app_path      = __dirname + '/../../',
-    template_path = path.normalize(app_path + 'template/current'),
-    logger        = require(app_path + 'lib/logger')();
+    appPath       = __dirname + '/../../',
+    templatePath  = path.normalize(appPath + 'template/current'),
+    Logger        = require(appPath + 'lib/logger'),
+    logger        = new Logger();
 
 var stats, activeConn, histogram, timer, config;
-var web_router = express.Router();
-web_router.set_config = function (conf, opt) {
-    web_router.config = conf;
-    web_router.opt = opt;
+var webRouter = express.Router();
+webRouter.setConfig = function (conf, opt) {
+    webRouter.config = conf;
+    webRouter.opt = opt;
     if (opt) {
         if (opt.hasOwnProperty('workerId')) {
             logger.set('workerId', opt.workerId);
@@ -28,7 +29,7 @@ web_router.set_config = function (conf, opt) {
     }
 };
 
-function redirectSlash (req, res, next) {
+function redirectSlash(req, res, next) {
     if (req.url.match(/^\/$/)) {
         res.redirect(301, '/index.html');
     } else {
@@ -36,15 +37,15 @@ function redirectSlash (req, res, next) {
     }
 }
 
-web_router.use(express.query()); // Parse query_string.
+webRouter.use(express.query()); // Parse queryString.
 //app.use(Express.cookieParser(opt.cookie.secret)); // Parse cookies.
 
 // create a write stream (in append mode)
-var accessLogStream = fs.createWriteStream(app_path + '/logs/access.log', {flags: 'a'});
+var accessLogStream = fs.createWriteStream(appPath + '/logs/access.log', {flags: 'a'});
 // setup the logger
-web_router.use(morgan('combined', {stream: accessLogStream}));
+webRouter.use(morgan('combined', {stream: accessLogStream}));
 
-web_router.use(function(req, res, next) {
+webRouter.use(function(req, res, next) {
     logger.log('info',
         req.method,
         req.url,
@@ -54,18 +55,18 @@ web_router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-web_router.use(redirectSlash);
-web_router.use('/js/', express.static(app_path + 'template/current/js/'));
-web_router.use('/img/', express.static(app_path + 'template/current/img/'));
-web_router.use('/css/', express.static(app_path + 'template/current/css/'));
-web_router.use('/fonts/', express.static(app_path + 'template/current/fonts/'));
-web_router.use('/favicon.ico', express.static(app_path + 'template/current/favicon.ico'));
-web_router.use('/robots.txt', express.static(app_path + 'template/robots.txt'));
-web_router.use('/sitemap.xml', express.static(app_path + 'template/sitemap.xml'));
+webRouter.use(redirectSlash);
+webRouter.use('/js/', express.static(appPath + 'template/current/js/'));
+webRouter.use('/img/', express.static(appPath + 'template/current/img/'));
+webRouter.use('/css/', express.static(appPath + 'template/current/css/'));
+webRouter.use('/fonts/', express.static(appPath + 'template/current/fonts/'));
+webRouter.use('/favicon.ico', express.static(appPath + 'template/current/favicon.ico'));
+webRouter.use('/robots.txt', express.static(appPath + 'template/robots.txt'));
+webRouter.use('/sitemap.xml', express.static(appPath + 'template/sitemap.xml'));
 
 // Main route for html files.
-web_router.get('/*', function(req, res) {
-    var request_pathname = req._parsedUrl.pathname;
+webRouter.get('/*', function(req, res) {
+    var requestPathname = req._parsedUrl.pathname;
 
     // Stop timer when response is transferred and finish.
     res.on('finish', function () {
@@ -74,15 +75,14 @@ web_router.get('/*', function(req, res) {
     // End metrics
 
     try {
-        var tpl = swig.compileFile(template_path + request_pathname);
+        var tpl = swig.compileFile(templatePath + requestPathname);
         res.send(tpl({
             title: 'Hello world',
-            query_string: req.query,
+            queryString: req.query
         }));
     } catch (err) {
         res.status(404).send('Page not found: ' + err);
     }
 
-
 });
-module.exports = web_router;
+module.exports = webRouter;

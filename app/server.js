@@ -11,15 +11,16 @@ var path = require('path'),
     express = require('express'),
     bodyParser = require('body-parser'),
     compression = require('compression'),
-    app_path = path.normalize(__dirname + '/../');
+    appPath = path.normalize(__dirname + '/../');
 
 commander
     .option('-c, --config <file>', 'configuration file path', './config/config.js')
     .parse(process.argv);
-var config = require(app_path + commander.config);
+var config = require(appPath + commander.config);
 
-var logger = require(app_path + 'lib/logger')({
-    log_level : config.log_level
+var Logger = require(appPath + 'lib/logger');
+var logger = new Logger({
+    logLevel: config.logLevel
 });
 
 var app = express();
@@ -28,10 +29,10 @@ app.use(compression({
     threshold: 512
 }));
 
-var web_router = require('./routes/web');
-web_router.set_config(config, {});
+var webRouter = require('./routes/web');
+webRouter.setConfig(config, {});
 
-app.use('/', web_router);
+app.use('/', webRouter);
 
 // Start the server -------------------------------
 var server = app.listen(config.app.port);

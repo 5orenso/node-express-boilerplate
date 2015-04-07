@@ -67,14 +67,12 @@ module.exports = function (grunt) {
             },
             multiple: {
                 command: [
-                    'rm -rf artifact',
                     'mkdir -p artifact',
-                    'mv node_modules ../node_modules2',
+                    'mv ./node_modules ./node_modules2',
                     'npm install --production',
-                    'tar --exclude "./.git*" --exclude "./node_modules" --exclude "./test*" --exclude "./artifact" ' +
-                    '--exclude "./app/config/config*" --exclude "./.idea" --exclude "./dev" -zcf artifact/<%= latestTag %>.tar.gz .',
+                    'tar --exclude "./.git*" --exclude "./node_modules2" --exclude "./test*" --exclude "./artifact" --exclude "./app/config/config*" --exclude "./.idea" --exclude "./dev" -zcf artifact/<%= latestTag %>.tar.gz .',
                     'rm -rf node_modules',
-                    'mv ../node_modules2 node_modules',
+                    'mv ./node_modules2 ./node_modules',
                     'bash changelog.sh'
                 ].join('&&')
             }

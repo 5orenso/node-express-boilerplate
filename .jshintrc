@@ -1,27 +1,48 @@
 // http://www.jshint.com/docs/options/
 {
-    "bitwise": true,
-    "camelcase": false,
-    "curly": true,
-    "eqeqeq": true,
-    "forin": true,
-    "immed": true,
-    "indent": 4,
-    "latedef": "nofunc",
-    "maxdepth": 5,
-    "maxlen": 200,
-    "newcap": true,
-    "noarg": true,
-    "noempty": true,
-    "nonew": true,
-    "quotmark": false,
-    "strict": true,
-    "undef": true,
-    "unused": false,
-    "boss": true,
-    "eqnull": true,
-    "esnext": false,
-    "laxbreak": false,
-    "node": true,
-    "sub": true
+  // This option prohibits the use of bitwise operators such as ^ (XOR), | (OR) and others. Bitwise operators are very rare in JavaScript programs and quite often & is simply a mistyped &&.
+  "bitwise": true,
+  //  "camelcase": false,
+  // This option requires you to always put curly braces around blocks in loops and conditionals. JavaScript allows you to omit curly braces when the block consists of only one statement.
+  "curly": true,
+  // This options prohibits the use of == and != in favor of === and !==. The former try to coerce values before comparing them which can lead to some unexpected results. The latter don't do any coercion so they are generally safer.
+  "eqeqeq": true,
+  // This option enables syntax first defined in the ECMAScript 5.1 specification. This includes allowing reserved keywords as object properties.
+  //  "es5": true,
+  // This options prohibits overwriting prototypes of native objects such as Array, Date and so on.
+  "freeze": true,
+  // This option enables warnings about the use of identifiers which are defined in future versions of JavaScript. Although overwriting them has no effect in contexts where they are not implemented, this practice can cause issues when migrating codebases to newer versions of the language.
+  "futurehostile": true,
+  // This option requires all for in loops to filter object's items. The for in statement allows for looping through the names of all of the properties of an object including those inherited through the prototype chain. This behavior can lead to unexpected items in your object so it is generally safer to always filter inherited properties out.
+  "forin": true,
+  // This option prohibits the use of a variable before it was defined. JavaScript has function scope only and, in addition to that, all variables are always moved—or hoisted— to the top of the function.
+  "latedef": "nofunc",
+  // This option lets you control how nested do you want your blocks to be.
+  "maxdepth": 5,
+  // This option lets you set the max number of formal parameters allowed per function.
+  "maxparams": 5,
+  // This option lets you set the max number of statements allowed per function.
+  //  "maxstatements": 5,
+  // This option prohibits the use of arguments.caller and arguments.callee. Both .caller and .callee make quite a few optimizations impossible so they were deprecated in future versions of JavaScript. In fact, ECMAScript 5 forbids the use of arguments.callee in strict mode.
+  "noarg": true,
+  // This option prohibits the use of constructor functions for side-effects. Some people like to call constructor functions without assigning its result to any variable.
+  "nonew": true,
+  // This option prohibits the use of the comma operator. When misused, the comma operator can obscure the value of a statement and promote incorrect code.
+  "nocomma": true,
+  // This option warns about "non-breaking whitespace" characters. These characters can be entered with option-space on Mac computers and have a potential of breaking non-UTF8 web pages.
+  "nonbsp": true,
+  // This option requires all functions to run in ECMAScript 5's strict mode. Strict mode is a way to opt in to a restricted variant of JavaScript. Strict mode eliminates some JavaScript pitfalls that didn't cause errors by changing them to produce errors. It also fixes mistakes that made it difficult for the JavaScript engines to perform certain optimizations.
+  "strict": true,
+  // This option prohibits the use of explicitly undeclared variables. This option is very useful for spotting leaking and mistyped variables.
+  "undef": true,
+  // This option warns when you define and never use your variables. It is very useful for general code cleanup, especially when used in addition to undef.
+  "unused": true,
+  // This option suppresses warnings about the use of assignments in cases where comparisons are expected. More often than not, code like if (a = 10) {} is a typo.
+  "boss": true,
+  // This option suppresses warnings about == null comparisons. Such comparisons are often useful when you want to check if a variable is null or undefined.
+  "eqnull": true,
+  // This option tells JSHint that your code uses ECMAScript 6 specific syntax. Note that these features are not finalized yet and not all browsers implement them.
+  "esnext": false,
+  // This option defines globals available when your code is running inside of the Node runtime environment. Node.js is a server-side JavaScript environment that uses an asynchronous event-driven model.
+  "node": true
 }

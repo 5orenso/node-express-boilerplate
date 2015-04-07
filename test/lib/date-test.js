@@ -8,8 +8,6 @@
 
 var buster  = require('buster'),
     assert  = buster.assert,
-    refute  = buster.refute,
-    when    = require('when'),
     libDate = require('../../lib/date'),
     date    = new libDate({}, {});
 

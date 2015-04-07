@@ -7,8 +7,6 @@
 'use strict';
 var express       = require('express'),
     morgan        = require('morgan'),
-    when          = require('when'),
-    _             = require('underscore'),
     swig          = require('swig'),
     fs            = require('fs'),
     path          = require('path'),
@@ -17,7 +15,6 @@ var express       = require('express'),
     Logger        = require(appPath + 'lib/logger'),
     logger        = new Logger();
 
-var stats, activeConn, histogram, timer, config;
 var webRouter = express.Router();
 webRouter.setConfig = function (conf, opt) {
     webRouter.config = conf;

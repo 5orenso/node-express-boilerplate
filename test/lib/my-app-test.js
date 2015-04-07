@@ -8,7 +8,6 @@
 
 var buster = require('buster'),
     assert = buster.assert,
-    refute = buster.refute,
     when   = require('when');
 
 buster.testCase('lib/logger', {
@@ -29,10 +28,10 @@ buster.testCase('lib/logger', {
             when(function functionWhichReturnsAPromise() {
                 return 'my promise';
             })
-                .done(function success(result) {
+                .done(function success() {
                     assert(true);
                     done();
-                }, function error(result) {
+                }, function error() {
                     assert(true);
                     done();
                 });

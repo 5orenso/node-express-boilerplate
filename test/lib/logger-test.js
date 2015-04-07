@@ -8,7 +8,6 @@
 
 var buster  = require('buster'),
     assert  = buster.assert,
-    refute  = buster.refute,
     when    = require('when'),
     appPath = __dirname + '/../../',
     mock    =  {

@@ -46,6 +46,7 @@ if (cluster.isMaster) {
 
     // Start the server -------------------------------
     var server = app.listen(config.app.port);
+    logger.log('debug', server);
     logger.log('info', 'Something happens on port ' + config.app.port);
 }
 

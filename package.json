@@ -9,7 +9,7 @@
   },
   "main": "app/server.js",
   "engines": {
-    "node": ">=0.10.21"
+    "node": ">=0.10.35"
   },
   "scripts": {
     "test": "grunt"

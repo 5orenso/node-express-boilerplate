@@ -7,7 +7,7 @@
     "name": "Øistein Sørensen",
     "email": "sorenso@gmail.com"
   },
-  "main": "main",
+  "main": "app/server.js",
   "engines": {
     "node": ">=0.10.21"
   },
@@ -39,6 +39,7 @@
     "swig": "~1.4.2",
     "compression": "~1.1.0",
     "winston-syslog": "~0.2.5",
-    "morgan": "~1.5.0"
+    "morgan": "~1.5.0",
+    "is-my-json-valid": "~2.10.1"
   }
 }

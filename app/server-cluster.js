@@ -29,25 +29,30 @@ if (cluster.isMaster) {
     commander
         .option('-c, --config <file>', 'configuration file path', './config/config.js')
         .parse(process.argv);
-    var config = require(appPath + commander.config);
 
-    var logger = require(appPath + 'lib/logger')({
-        logLevel: config.logLevel
-    });
+    var ConfigLoader = require(appPath + 'lib/config-loader');
+    var configLoader = new ConfigLoader();
+    var config = configLoader.load(appPath + commander.config);
 
-    var app = express();
-    app.use(bodyParser.json());
+    if (config) {
+        var logger = require(appPath + 'lib/logger')({
+            logLevel: config.logLevel
+        });
 
-    var webRouter = require('./routes/web');
-    webRouter.setConfig(config, {
-        workerId: cluster.worker.id
-    });
-    app.use('/', webRouter);
+        var app = express();
+        app.use(bodyParser.json());
 
-    // Start the server -------------------------------
-    var server = app.listen(config.app.port);
-    logger.log('debug', server);
-    logger.log('info', 'Something happens on port ' + config.app.port);
+        var webRouter = require('./routes/web');
+        webRouter.setConfig(config, {
+            workerId: cluster.worker.id
+        });
+        app.use('/', webRouter);
+
+        // Start the server -------------------------------
+        var server = app.listen(config.app.port);
+        logger.log('debug', server);
+        logger.log('info', 'Something happens on port ' + config.app.port);
+    }
 }
 
 // Listen for dying workers

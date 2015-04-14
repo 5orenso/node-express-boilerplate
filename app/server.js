@@ -36,10 +36,14 @@ if (config) {
     var webRouter = require('./routes/web');
     webRouter.setConfig(config, {});
 
+    // Routes
+    // * Add more routes here
     app.use('/', webRouter);
 
     // Start the server -------------------------------
-    var server = app.listen(config.app.port);
-    logger.log('debug', server);
-    logger.log('info', 'Something happens on port ' + config.app.port);
+    var server = app.listen(config.app.port, function () {
+        var host = server.address().address;
+        var port = server.address().port;
+        logger.log('info', 'Something happens at http://' + host + ':' + port + '/');
+    });
 }

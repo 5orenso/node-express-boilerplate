@@ -14,21 +14,22 @@ var express       = require('express'),
     appPath       = __dirname + '/../../',
     templatePath  = path.normalize(appPath + 'template/current'),
     Logger        = require(appPath + 'lib/logger'),
-    logger        = new Logger();
+    logger        = new Logger(),
+    accessLogStream;
 
 var webRouter = express.Router();
 webRouter.setConfig = function (conf, opt) {
     webRouter.config = conf;
     webRouter.opt = opt;
-    if (opt) {
-        if (opt.hasOwnProperty('workerId')) {
+    if (_.isObject(opt)) {
+        if (_.isNumber(opt.workerId)) {
             logger.set('workerId', opt.workerId);
         }
     }
     if (_.isObject(conf)) {
         if (_.isObject(conf.app) && _.isString(conf.app.logFile)) {
             // create a write stream (in append mode)
-            var accessLogStream = fs.createWriteStream(appPath + '/logs/access.log', {flags: 'a'});
+            accessLogStream = fs.createWriteStream(conf.app.logFile, {flags: 'a'});
             // setup the logger
             webRouter.use(morgan('combined', {stream: accessLogStream}));
         }

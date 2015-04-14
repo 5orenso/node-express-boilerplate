@@ -10,6 +10,7 @@ var express       = require('express'),
     swig          = require('swig'),
     fs            = require('fs'),
     path          = require('path'),
+    _             = require('underscore'),
     appPath       = __dirname + '/../../',
     templatePath  = path.normalize(appPath + 'template/current'),
     Logger        = require(appPath + 'lib/logger'),
@@ -24,6 +25,14 @@ webRouter.setConfig = function (conf, opt) {
             logger.set('workerId', opt.workerId);
         }
     }
+    if (_.isObject(conf)) {
+        if (_.isObject(conf.app) && _.isString(conf.app.logFile)) {
+            // create a write stream (in append mode)
+            var accessLogStream = fs.createWriteStream(appPath + '/logs/access.log', {flags: 'a'});
+            // setup the logger
+            webRouter.use(morgan('combined', {stream: accessLogStream}));
+        }
+    }
 };
 
 function redirectSlash(req, res, next) {
@@ -36,11 +45,6 @@ function redirectSlash(req, res, next) {
 
 webRouter.use(express.query()); // Parse queryString.
 //app.use(Express.cookieParser(opt.cookie.secret)); // Parse cookies.
-
-// create a write stream (in append mode)
-var accessLogStream = fs.createWriteStream(appPath + '/logs/access.log', {flags: 'a'});
-// setup the logger
-webRouter.use(morgan('combined', {stream: accessLogStream}));
 
 webRouter.use(function(req, res, next) {
     logger.log('info',

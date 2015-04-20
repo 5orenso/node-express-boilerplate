@@ -36,8 +36,12 @@ if (config) {
     var webRouter = require('./routes/web');
     webRouter.setConfig(config, {});
 
+    var apiRouter = require('./routes/api');
+    apiRouter.setConfig(config, {});
+
     // Routes
     // * Add more routes here
+    app.use('/api/', apiRouter);
     app.use('/', webRouter);
 
     // Start the server -------------------------------

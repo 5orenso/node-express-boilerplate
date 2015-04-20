@@ -40,6 +40,7 @@
     "compression": "~1.1.0",
     "winston-syslog": "~0.2.5",
     "morgan": "~1.5.0",
-    "is-my-json-valid": "~2.10.1"
+    "is-my-json-valid": "~2.10.1",
+    "underscore-contrib": "~0.3.0"
   }
 }

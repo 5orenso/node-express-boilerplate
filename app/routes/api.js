@@ -68,8 +68,13 @@ apiRouter.use(function(req, res, next) {
 apiRouter.use(express.query()); // Parse queryString.
 //app.use(Express.cookieParser(opt.cookie.secret)); // Parse cookies.
 
-// parse application/json
+// Parse application/json
 apiRouter.use(bodyParser.json());
+
+// Handle errors from JSON input
+apiRouter.use(function(err, req, res, next) {
+    next();
+});
 
 // Handle browser lookups.
 apiRouter.options('/*', function(req, res) {

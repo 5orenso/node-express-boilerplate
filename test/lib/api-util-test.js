@@ -42,9 +42,9 @@ buster.testCase('lib/logger', {
                 method: 'GET',
                 query: { foo: 'bar' }
             });
-            console.log(result);
+            //console.log(result);
             // TODO: Check response and compare.
-            assert(true);
+            assert(result);
         },
         'call handleApiRequest for resource': function () {
             var Au = require(appPath + 'lib/api-util');
@@ -55,9 +55,9 @@ buster.testCase('lib/logger', {
                 query: { foo: 'bar' }
             });
             var apiResult = au.handleApiRequest(result);
-            console.log(apiResult);
+            //console.log(apiResult);
             // TODO: Check response and compare.
-            assert(true);
+            assert(apiResult);
         },
         'call handleApiRequest for related': function () {
             var Au = require(appPath + 'lib/api-util');
@@ -68,9 +68,9 @@ buster.testCase('lib/logger', {
                 query: { foo: 'bar' }
             });
             var apiResult = au.handleApiRequest(result);
-            console.log(apiResult);
+            //console.log(apiResult);
             // TODO: Check response and compare.
-            assert(true);
+            assert(apiResult);
         },
         'call sendHeaderResponse': function () {
             var Au = require(appPath + 'lib/api-util');
@@ -82,9 +82,9 @@ buster.testCase('lib/logger', {
                     location: 'http://example.com/articles/1'
                 }
             });
-            console.log(result);
+            //console.log(result);
             // TODO: Check response and compare.
-            assert(true);
+            assert(result);
         },
         'call makeErrorMsg': function () {
             var Au = require(appPath + 'lib/api-util');
@@ -93,9 +93,9 @@ buster.testCase('lib/logger', {
                 developerMessage: 'dev message',
                 userMessage: 'user message'
             });
-            console.log(result);
+            //console.log(result);
             // TODO: Check response and compare.
-            assert(true);
+            assert(result);
         },
         'call sendJsonResponse with success': function () {
             var Au = require(appPath + 'lib/api-util');
@@ -107,9 +107,9 @@ buster.testCase('lib/logger', {
             });
             var apiResult = au.handleApiRequest(result);
             var sendResult = au.sendJsonResponse(req, res, apiResult);
-            console.log(sendResult);
+            //console.log(sendResult);
             // TODO: Check response and compare.
-            assert(true);
+            assert(sendResult);
         },
         'call sendJsonResponse with error': function () {
             var Au = require(appPath + 'lib/api-util');

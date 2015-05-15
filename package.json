@@ -30,17 +30,18 @@
   },
   "keywords": [],
   "dependencies": {
-    "when": "~3.4.4",
-    "underscore": "~1.6.0",
-    "winston": "~0.7.3",
-    "commander": "~2.3.0",
-    "express": "~4.9.5",
     "body-parser": "~1.9.0",
-    "swig": "~1.4.2",
+    "commander": "~2.3.0",
     "compression": "~1.1.0",
-    "winston-syslog": "~0.2.5",
-    "morgan": "~1.5.0",
+    "express": "~4.9.5",
     "is-my-json-valid": "~2.10.1",
-    "underscore-contrib": "~0.3.0"
+    "morgan": "~1.5.0",
+    "node-dogstatsd": "0.0.6",
+    "swig": "~1.4.2",
+    "underscore": "~1.6.0",
+    "underscore-contrib": "~0.3.0",
+    "when": "~3.4.4",
+    "winston": "~0.7.3",
+    "winston-syslog": "~0.2.5"
   }
 }

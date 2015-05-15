@@ -193,6 +193,25 @@ buster.testCase('app/routes/api', {
                 assert.equals(501, response.statusCode);
                 done();
             });
+        },
+
+        'POST /articles w/borked JSON': function (done) {
+            request({
+                method: 'POST',
+                uri: 'http://127.0.0.1:' + port + '/articles',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: 'broken JSON string.'
+            }, function (error, response) {
+                console.log(response.headers, response.body);
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders.connection, response.headers.connection);
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(201, response.statusCode);
+                done();
+            });
         }
+
     }
 });

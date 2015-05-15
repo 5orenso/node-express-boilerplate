@@ -15,6 +15,8 @@ var express       = require('express'),
     logger        = new Logger(),
     ApiUtil       = require(appPath + 'lib/api-util'),
     apiUtil       = new ApiUtil(),
+    Metrics       = require(appPath + 'lib/metrics'),
+    metrics       = new Metrics(),
     accessLogStream;
 
 var counter = {
@@ -46,6 +48,7 @@ apiRouter.setConfig = function (conf, opt) {
         }
     }
     if (_.isObject(conf)) {
+        metrics.set('useDataDog', conf.useDataDog);
         if (_.isObject(conf.app) && _.isString(conf.app.logFile)) {
             // create a write stream (in append mode)
             accessLogStream = fs.createWriteStream(conf.app.logFile, {flags: 'a'});
@@ -90,9 +93,11 @@ apiRouter.options('/*', function(req, res) {
 
 // list/show object/s
 apiRouter.get('/*', function(req, res) {
+    res.metricsStart = metrics.start();
     // Stop timer when response is transferred and finish.
     res.on('finish', function () {
-
+        metrics.increment('node-express-boilerplate.count.route.get');
+        metrics.timing('node-express-boilerplate.route.get', res.metricsStart);
     });
     // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
@@ -104,9 +109,11 @@ apiRouter.get('/*', function(req, res) {
 
 // create new
 apiRouter.post('/*', function(req, res) {
+    res.metricsStart = metrics.start();
     // Stop timer when response is transferred and finish.
     res.on('finish', function () {
-
+        metrics.increment('node-express-boilerplate.count.route.post');
+        metrics.timing('node-express-boilerplate.route.post', res.metricsStart);
     });
     // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
@@ -118,9 +125,11 @@ apiRouter.post('/*', function(req, res) {
 
 // update all or one
 apiRouter.put('/*', function(req, res) {
+    res.metricsStart = metrics.start();
     // Stop timer when response is transferred and finish.
     res.on('finish', function () {
-
+        metrics.increment('node-express-boilerplate.count.route.put');
+        metrics.timing('node-express-boilerplate.route.put', res.metricsStart);
     });
     // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
@@ -132,9 +141,11 @@ apiRouter.put('/*', function(req, res) {
 
 // update all or one
 apiRouter.patch('/*', function(req, res) {
+    res.metricsStart = metrics.start();
     // Stop timer when response is transferred and finish.
     res.on('finish', function () {
-
+        metrics.increment('node-express-boilerplate.count.route.patch');
+        metrics.timing('node-express-boilerplate.route.patch', res.metricsStart);
     });
     // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
@@ -146,16 +157,17 @@ apiRouter.patch('/*', function(req, res) {
 
 // delete all or one
 apiRouter.delete('/*', function(req, res) {
+    res.metricsStart = metrics.start();
     // Stop timer when response is transferred and finish.
     res.on('finish', function () {
-
+        metrics.increment('node-express-boilerplate.count.route.delete');
+        metrics.timing('node-express-boilerplate.route.delete', res.metricsStart);
     });
     // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
     var result = apiUtil.handleApiRequest(apiRequest);
     var httpStatusCode = result.httpStatusCode;
     counter.requests[httpStatusCode]++;
-    console.log(__filename, result);
     apiUtil.sendJsonResponse(req, res, result);
 });
 

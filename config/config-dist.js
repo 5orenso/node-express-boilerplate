@@ -4,5 +4,6 @@ module.exports = {
     app: {
         port: 8000,
         logFile: '/tmp/access.log'
-    }
+    },
+    useDataDog: true
 };

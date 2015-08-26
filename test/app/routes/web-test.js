@@ -36,7 +36,6 @@ buster.testCase('app/routes/web', {
     'Test web routes:': {
         '/': function (done) {
             request('http://127.0.0.1:' + port + '/', function (error, response) {
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(200, response.statusCode);
                 done();
@@ -46,7 +45,6 @@ buster.testCase('app/routes/web', {
 
         '/not-found.html': function (done) {
             request('http://127.0.0.1:' + port + '/not-found.html', function (error, response) {
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(404, response.statusCode);
                 done();
             });

@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - "0.10"
   - "0.12"
+  - "iojs-v1.8.4"
+  - "iojs-v2.5.0"
   - "iojs"
 matrix:
   allow_failures:
@@ -9,4 +11,5 @@ matrix:
   fast_finish: true
 before_install: npm install -g grunt-cli
 install: npm install
+sudo: false
 #after_script: "istanbul cover ./all-tests.js"

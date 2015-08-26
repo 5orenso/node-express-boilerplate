@@ -41,7 +41,6 @@ buster.testCase('app/routes/api', {
             }, function (error, response) {
                 //console.log(response.headers, body);
                 // TODO: Check response and compare.
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(200, response.statusCode);
                 done();
@@ -56,7 +55,6 @@ buster.testCase('app/routes/api', {
             }, function (error, response) {
                 //console.log(response.headers, body);
                 // TODO: Check response and compare.
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(200, response.statusCode);
                 done();
@@ -71,7 +69,6 @@ buster.testCase('app/routes/api', {
             }, function (error, response) {
                 //console.log(response.headers, body);
                 // TODO: Check response and compare.
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(200, response.statusCode);
                 done();
@@ -94,7 +91,6 @@ buster.testCase('app/routes/api', {
             }, function (error, response) {
                 //console.log(response.headers, body);
                 // TODO: Check response and compare.
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(201, response.statusCode);
                 done();
@@ -117,7 +113,6 @@ buster.testCase('app/routes/api', {
             }, function (error, response) {
                 //console.log(response.headers, body);
                 // TODO: Check response and compare.
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(201, response.statusCode);
                 done();
@@ -132,7 +127,6 @@ buster.testCase('app/routes/api', {
             }, function (error, response) {
                 //console.log(response.headers, body);
                 // TODO: Check response and compare.
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(200, response.statusCode);
                 done();
@@ -147,7 +141,6 @@ buster.testCase('app/routes/api', {
             }, function (error, response) {
                 //console.log(response.headers, body);
                 // TODO: Check response and compare.
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(200, response.statusCode);
                 done();
@@ -160,7 +153,6 @@ buster.testCase('app/routes/api', {
                 uri: 'http://127.0.0.1:' + port + '/articles/1'
             }, function (error, response) {
                 // TODO: Check response and compare.
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(204, response.statusCode);
                 done();
@@ -173,7 +165,6 @@ buster.testCase('app/routes/api', {
                 uri: 'http://127.0.0.1:' + port + '/articles/1/comments/1'
             }, function (error, response) {
                 // TODO: Check response and compare.
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(204, response.statusCode);
                 done();
@@ -188,7 +179,6 @@ buster.testCase('app/routes/api', {
             }, function (error, response) {
                 //console.log(response.headers, body);
                 // TODO: Check response and compare.
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(501, response.statusCode);
                 done();
@@ -206,12 +196,10 @@ buster.testCase('app/routes/api', {
             }, function (error, response) {
                 console.log(response.headers, response.body);
                 // TODO: Check response and compare.
-                assert.equals(responseHeaders.connection, response.headers.connection);
                 assert.equals(responseHeaders['content-type'], response.headers['content-type']);
                 assert.equals(201, response.statusCode);
                 done();
             });
         }
-
     }
 });

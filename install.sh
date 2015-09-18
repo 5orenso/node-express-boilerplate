@@ -4,7 +4,7 @@ echo 'You should probably do this first:'
 echo '1. Generate a new repo on github.com.'
 echo '2. Clone repo to you project home dir.'
 
-echo '3. Enter path of new repo without trailing slash: '
+echo '3. Enter path of new repo without trailing slash (ie: "../my-new-web-repo"): '
 read PATH
 
 # Make paths we need

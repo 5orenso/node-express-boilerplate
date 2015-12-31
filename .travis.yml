@@ -1,15 +1,24 @@
 language: node_js
 node_js:
   - "0.10"
+  - "0.11"
   - "0.12"
-  - "iojs-v1.8.4"
-  - "iojs-v2.5.0"
-  - "iojs"
+  - "5.1"
+  - "5.2"
 matrix:
   allow_failures:
-    - node_js: "iojs"
+    - node_js: "0.11"
   fast_finish: true
 before_install: npm install -g grunt-cli
-install: npm install
-sudo: false
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+install:
+  - npm install
+  - npm install -g npm
 #after_script: "istanbul cover ./all-tests.js"

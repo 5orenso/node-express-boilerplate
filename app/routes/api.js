@@ -10,6 +10,7 @@ var express       = require('express'),
     morgan        = require('morgan'),
     fs            = require('fs'),
     _             = require('underscore-contrib'),
+    when          = require('when'),
     appPath       = __dirname + '/../../',
     Logger        = require(appPath + 'lib/logger'),
     logger        = new Logger(),
@@ -101,10 +102,14 @@ apiRouter.get('/*', function(req, res) {
     });
     // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
-    var result = apiUtil.handleApiRequest(apiRequest);
-    var httpStatusCode = result.httpStatusCode;
-    counter.requests[httpStatusCode]++;
-    apiUtil.sendJsonResponse(req, res, result);
+    when(apiUtil.handleApiRequest(apiRequest, apiRouter.config))
+        .done(function (result) {
+            var httpStatusCode = result.httpStatusCode;
+            counter.requests[httpStatusCode]++;
+            apiUtil.sendJsonResponse(req, res, result);
+        }, function (error) {
+            throw new Error(error);
+        });
 });
 
 // create new
@@ -117,10 +122,14 @@ apiRouter.post('/*', function(req, res) {
     });
     // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
-    var result = apiUtil.handleApiRequest(apiRequest);
-    var httpStatusCode = result.httpStatusCode;
-    counter.requests[httpStatusCode]++;
-    apiUtil.sendJsonResponse(req, res, result);
+    when(apiUtil.handleApiRequest(apiRequest, apiRouter.config))
+        .done(function (result) {
+            var httpStatusCode = result.httpStatusCode;
+            counter.requests[httpStatusCode]++;
+            apiUtil.sendJsonResponse(req, res, result);
+        }, function (error) {
+            throw new Error(error);
+        });
 });
 
 // update all or one
@@ -133,10 +142,14 @@ apiRouter.put('/*', function(req, res) {
     });
     // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
-    var result = apiUtil.handleApiRequest(apiRequest);
-    var httpStatusCode = result.httpStatusCode;
-    counter.requests[httpStatusCode]++;
-    apiUtil.sendJsonResponse(req, res, result);
+    when(apiUtil.handleApiRequest(apiRequest, apiRouter.config))
+        .done(function (result) {
+            var httpStatusCode = result.httpStatusCode;
+            counter.requests[httpStatusCode]++;
+            apiUtil.sendJsonResponse(req, res, result);
+        }, function (error) {
+            throw new Error(error);
+        });
 });
 
 // update all or one
@@ -149,10 +162,14 @@ apiRouter.patch('/*', function(req, res) {
     });
     // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
-    var result = apiUtil.handleApiRequest(apiRequest);
-    var httpStatusCode = result.httpStatusCode;
-    counter.requests[httpStatusCode]++;
-    apiUtil.sendJsonResponse(req, res, result);
+    when(apiUtil.handleApiRequest(apiRequest, apiRouter.config))
+        .done(function (result) {
+            var httpStatusCode = result.httpStatusCode;
+            counter.requests[httpStatusCode]++;
+            apiUtil.sendJsonResponse(req, res, result);
+        }, function (error) {
+            throw new Error(error);
+        });
 });
 
 // delete all or one
@@ -165,10 +182,14 @@ apiRouter.delete('/*', function(req, res) {
     });
     // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
-    var result = apiUtil.handleApiRequest(apiRequest);
-    var httpStatusCode = result.httpStatusCode;
-    counter.requests[httpStatusCode]++;
-    apiUtil.sendJsonResponse(req, res, result);
+    when(apiUtil.handleApiRequest(apiRequest, apiRouter.config))
+        .done(function (result) {
+            var httpStatusCode = result.httpStatusCode;
+            counter.requests[httpStatusCode]++;
+            apiUtil.sendJsonResponse(req, res, result);
+        }, function (error) {
+            throw new Error(error);
+        });
 });
 
 module.exports = apiRouter;

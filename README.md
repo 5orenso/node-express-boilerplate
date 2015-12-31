@@ -75,3 +75,9 @@ npm install grunt-nodemon --save-dev
 npm install grunt-shell --save-dev
 ```
 
+### Howto upgrade modules
+```bash
+$ npm install -g npm-check-updates
+$ ncu -u
+$ npm install --save --no-optional
+```

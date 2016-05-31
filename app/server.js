@@ -5,7 +5,11 @@
  * Licensed under the MIT license.
  */
 'use strict';
-
+/**
+ * @fileOverview Loading config, mouting routes and starting http server.
+ * See {@tutorial getting-started}
+ * @name The main server.
+ */
 var path = require('path'),
     commander = require('commander'),
     express = require('express'),
@@ -19,7 +23,7 @@ commander
 
 var ConfigLoader = require(appPath + 'lib/config-loader');
 var configLoader = new ConfigLoader();
-var config = configLoader.load(appPath + commander.config);
+var config = configLoader.load(commander.config);
 
 if (config) {
     var Logger = require(appPath + 'lib/logger');

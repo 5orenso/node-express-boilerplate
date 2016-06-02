@@ -44,35 +44,47 @@ $ npm install -g istanbul
 
 To run the server in development mode:
 ```bash
-git clone https://github.com/5orenso/node-express-boilerplate.git
-cd node-express-boilerplate
-npm install
-./run-server.sh
+$ git clone https://github.com/5orenso/node-express-boilerplate.git
+$ cd node-express-boilerplate
+$ npm install
+$ ./run-server.sh
 ```
 
 This will restart the server every time a file has changed.
 
-
 In addition to this I recommend using Grunt to watch your files and perform code analysis and run tests every time a file changes:
 ```bash
-./run-watch.sh
+$ ./run-watch.sh
 ```
 
 Now, go ahead and add modules into the ./app/routes/web.js or add more routes to the ./app/server.js file.
 
+### HOWTO check the test coverage
+```bash
+$ grunt test
+$ open coverage/lcov-report/index.html
+```
+
+### HOWTO view jsdoc documentation
+```bash
+$ grunt
+$ open doc/index.html
+```
+
 ### HOWTO upgrade dev environment
 ```bash
-npm install buster --save-dev
-npm install buster-istanbul --save-dev
-npm install grunt --save-dev
-npm install grunt-buster --save-dev
-npm install grunt-contrib-jshint --save-dev
-npm install grunt-contrib-nodeunit --save-dev
-npm install grunt-contrib-watch --save-dev
-npm install grunt-coveralls --save-dev
-npm install grunt-jscs --save-dev
-npm install grunt-nodemon --save-dev
-npm install grunt-shell --save-dev
+$ npm install buster --save-dev
+$ npm install buster-istanbul --save-dev
+$ npm install grunt --save-dev
+$ npm install grunt-buster --save-dev
+$ npm install grunt-contrib-jshint --save-dev
+$ npm install grunt-contrib-nodeunit --save-dev
+$ npm install grunt-contrib-watch --save-dev
+$ npm install grunt-coveralls --save-dev
+$ npm install grunt-jscs --save-dev
+$ npm install grunt-jsdoc --save-dev
+$ npm install grunt-nodemon --save-dev
+$ npm install grunt-shell --save-dev
 ```
 
 ### Howto upgrade modules

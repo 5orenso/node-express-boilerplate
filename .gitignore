@@ -35,3 +35,4 @@ dev/
 config/config.js
 artifact/
 .DS_Store
+doc/

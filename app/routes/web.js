@@ -106,6 +106,15 @@ webRouter.use('/ip', function (req, res) {
         countryCode: (typeof location.country === 'object' ? location.country.iso_code : ''),
         poweredBy: 'http://www.maxmind.com'
     };
+    // Set cookies
+    var cookieOptions = {
+        expires: new Date(Date.now() + 86400),
+        domain: webRouter.config.app.domain,
+        path: '/',
+        secure: true
+    };
+    res.cookie('cc', responseLocation.countryCode, cookieOptions);
+
     if (req.query.callback) {
         res.write(req.query.callback + '(' + JSON.stringify(responseLocation) + ')');
     } else {

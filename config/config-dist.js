@@ -4,7 +4,8 @@ module.exports = {
     logLevel: 'debug', // debug, verbose, info
     app: {
         port: 8000,
-        logFile: '/tmp/access.log'
+        logFile: '/tmp/access.log',
+        domain: '.example.com'
     },
     useDataDog: true
 };

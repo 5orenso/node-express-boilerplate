@@ -85,9 +85,9 @@ webRouter.use('/ip', function (req, res) {
     var location = {
         location: {},
         postal: {},
-        city: { names: {} },
-        country: { names: {} },
-        continent: { names: {} }
+        city: {},
+        country: {},
+        continent: {}
     };
     if (remoteIp.match(ipRegExp)) {
         location = cityLookup.get(remoteIp);
@@ -96,14 +96,14 @@ webRouter.use('/ip', function (req, res) {
     // console.log('LOCATION:', JSON.stringify(location, null, 4));
     var responseLocation = {
         ip: req.headers.remote_addr,
-        loc: location.location.latitude + ',' + location.location.longitude,
-        timezone: location.location.time_zone,
-        city: location.city.names.en,
-        postal: location.postal.code,
-        continent: location.continent.names.en,
-        continentCode: location.continent.code,
-        country: location.country.names.en,
-        countryCode: location.country.iso_code,
+        loc: (typeof location.location === 'object' ? (location.location.latitude + ',' + location.location.longitude) : ''),
+        timezone: (typeof location.location === 'object' ? location.location.time_zone : ''),
+        city: (typeof location.city === 'object' ? location.city.names.en : ''),
+        postal: (typeof location.postal === 'object' ? location.postal.code : ''),
+        continent: (typeof location.continent === 'object' ? location.continent.names.en : ''),
+        continentCode: (typeof location.continent === 'object' ? location.continent.code : ''),
+        country: (typeof location.country === 'object' ? location.country.names.en : ''),
+        countryCode: (typeof location.country === 'object' ? location.country.iso_code : ''),
         poweredBy: 'http://www.maxmind.com'
     };
     if (req.query.callback) {

@@ -66,6 +66,14 @@ webRouter.use('/favicon.ico', express.static(appPath + 'template/current/favicon
 webRouter.use('/robots.txt', express.static(appPath + 'template/robots.txt'));
 webRouter.use('/sitemap.xml', express.static(appPath + 'template/sitemap.xml'));
 
+webRouter.use('/ip', function (req, res) {
+    // jscs:disable
+    res.write(req.headers.remote_addr);
+    // jscs:enable
+
+    res.end();
+});
+
 // Main route for html files.
 webRouter.get('/*', function(req, res) {
     var requestPathname = req._parsedUrl.pathname;

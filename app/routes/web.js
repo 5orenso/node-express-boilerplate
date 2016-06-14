@@ -37,7 +37,7 @@ webRouter.setConfig = function (conf, opt) {
 };
 
 function redirectSlash(req, res, next) {
-    if (req.url.match(/^\/$/)) {
+    if (req.url.match(/^\/(\?\w+=.+?)*$/)) {
         res.redirect(301, '/index.html');
     } else {
         next();

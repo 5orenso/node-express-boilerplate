@@ -11,10 +11,13 @@ var express       = require('express'),
     fs            = require('fs'),
     path          = require('path'),
     _             = require('underscore'),
+    maxmind       = require('maxmind'),
     appPath       = __dirname + '/../../',
     templatePath  = path.normalize(appPath + 'template/current'),
     Logger        = require(appPath + 'lib/logger'),
     logger        = new Logger(),
+    ApiUtil       = require(appPath + 'lib/api-util'),
+    apiUtil       = new ApiUtil(),
     accessLogStream;
 
 var webRouter = express.Router();
@@ -68,7 +71,48 @@ webRouter.use('/sitemap.xml', express.static(appPath + 'template/sitemap.xml'));
 
 webRouter.use('/ip', function (req, res) {
     // jscs:disable
-    res.write(req.query.callback + '({"ip":"' + req.headers.remote_addr + '"})');
+    var cityLookup = maxmind.open(appPath + 'db/GeoLite2-City.mmdb');
+    var clientIp = req.query.q || req.headers['x-forwarded-for'] || req.connection.remote_addr,
+        location = cityLookup.get(clientIp);
+    // console.log('LOCATION:', JSON.stringify(location, null, 4));
+    var responseLocation = {
+        ip: req.headers.remote_addr,
+        loc: location.location.latitude + ',' + location.location.longitude,
+        timezone: location.location.time_zone,
+        city: location.city.names.en,
+        postal: location.postal.code,
+        continent: location.continent.names.en,
+        continentCode: location.continent.code,
+        country: location.country.names.en,
+        countryCode: location.country.iso_code,
+        poweredBy: 'http://www.maxmind.com'
+    };
+    if (req.query.callback) {
+        res.write(req.query.callback + '(' + JSON.stringify(responseLocation) + ')');
+    } else {
+        apiUtil.sendHeaderResponse(req, res, {
+            httpStatusCode: 200,
+            contentLength: responseLocation.length
+        });
+        res.write(JSON.stringify(responseLocation, null, 4));
+    }
+    // Output:
+    ///**/ typeof callback === 'function' && callback({
+    //    "ip": "89.9.250.109",
+    //    "hostname": "No Hostname",
+    //    "city": "",
+    //    "region": "",
+    //    "country": "NO",
+    //    "loc": "59.9500,10.7500",
+    //    "org": "AS12929 TeliaSonera Norge AS"
+    //});
+    // Usage:
+    //$(document).ready(function () {
+    //    $.getJSON("https://l2.io/ip.js?var=myip", function (data) {
+    //        console.log(data);
+    //        alert(data.ip);
+    //    });
+    //});
     // jscs:enable
     res.end();
 });
@@ -83,7 +127,7 @@ webRouter.get('/*', function(req, res) {
     });
 
     // End metrics
-    console.log(req.headers);
+    //console.log(req.headers);
     try {
         var tpl = swig.compileFile(templatePath + requestPathname);
         res.send(tpl({

@@ -36,16 +36,41 @@ buster.testCase('app/routes/web', {
     'Test web routes:': {
         '/': function (done) {
             request('http://127.0.0.1:' + port + '/', function (error, response) {
-                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
-                assert.equals(200, response.statusCode);
+                assert.equals(response.headers['content-type'], responseHeaders['content-type']);
+                assert.equals(response.statusCode, 200);
                 done();
             });
 
         },
 
+        '/ip?q=51.175.83.151': function (done) {
+            request('http://127.0.0.1:' + port + '/ip?q=51.175.83.151', function (error, response, body) {
+                var json = JSON.parse(body);
+                assert.equals(response.statusCode, 200);
+                assert.equals(json.timezone, 'Europe/Oslo');
+                assert.equals(json.city, 'Oslo');
+                assert.equals(json.country, 'Norway');
+                done();
+            });
+        },
+
+        '/ip?q=51.175.83.151&callback=foobar': function (done) {
+            request('http://127.0.0.1:' + port + '/ip?q=51.175.83.151&callback=foobar',
+                function (error, response, body) {
+                //console.log(body);
+                assert.equals(response.statusCode, 200);
+                assert.match(body, /foobar\(.+?\)/);
+                assert.match(body, /"timezone":"Europe\/Oslo"/);
+                assert.match(body, /"city":"Oslo"/);
+                assert.match(body, /"country":"Norway"/);
+                assert.match(body, /"poweredBy":"http:\/\/www.maxmind.com"/);
+                done();
+            });
+        },
+
         '/not-found.html': function (done) {
             request('http://127.0.0.1:' + port + '/not-found.html', function (error, response) {
-                assert.equals(404, response.statusCode);
+                assert.equals(response.statusCode, 404);
                 done();
             });
         }

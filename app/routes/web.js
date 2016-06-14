@@ -68,9 +68,8 @@ webRouter.use('/sitemap.xml', express.static(appPath + 'template/sitemap.xml'));
 
 webRouter.use('/ip', function (req, res) {
     // jscs:disable
-    res.write(req.headers.remote_addr);
+    res.write('var myIP="' + req.headers.remote_addr + '";');
     // jscs:enable
-
     res.end();
 });
 

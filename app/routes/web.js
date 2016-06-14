@@ -79,8 +79,8 @@ webRouter.use('/ip', function (req, res) {
         remoteIp = req.query.q;
     } else if (typeof req.headers['x-forwarded-for'] === 'string' && req.headers['x-forwarded-for'].match(ipRegExp)) {
         remoteIp = req.headers['x-forwarded-for'];
-    } else if (typeof req.headers.remote_addr === 'string' && req.headers.remote_addr.match(ipRegExp)) {
-        remoteIp = req.headers.remote_addr;
+    } else if (typeof req.headers.REMOTE_ADDR === 'string' && req.headers.REMOTE_ADDR.match(ipRegExp)) {
+        remoteIp = req.headers.REMOTE_ADDR;
     }
     var location = {
         location: {},
@@ -95,7 +95,7 @@ webRouter.use('/ip', function (req, res) {
 
     // console.log('LOCATION:', JSON.stringify(location, null, 4));
     var responseLocation = {
-        ip: req.headers.remote_addr,
+        ip: req.headers.REMOTE_ADDR,
         loc: location.location.latitude + ',' + location.location.longitude,
         timezone: location.location.time_zone,
         city: location.city.names.en,

@@ -74,13 +74,15 @@ webRouter.get('/*', function(req, res) {
     res.on('finish', function () {
 
     });
-    // End metrics
 
+    // End metrics
+    console.log(req.headers);
     try {
         var tpl = swig.compileFile(templatePath + requestPathname);
         res.send(tpl({
             title: 'Hello world',
-            queryString: req.query
+            queryString: req.query,
+            requestHeaders: req.headers
         }));
     } catch (err) {
         res.status(404).send('Page not found: ' + err);

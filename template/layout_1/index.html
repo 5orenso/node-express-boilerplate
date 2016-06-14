@@ -11,6 +11,13 @@
         <li>{{ key }} = {{ val }}</li>
     {% endfor %}
     </ul>
+
+    <strong>Server stuff: </strong>
+    <ul>
+        {% for key, val in requestHeaders %}
+        <li>{{ key }} = {{ val }}</li>
+        {% endfor %}
+    </ul>
 </p>
 </body>
 </html>

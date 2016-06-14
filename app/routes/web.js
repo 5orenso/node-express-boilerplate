@@ -13,6 +13,7 @@ var express       = require('express'),
     _             = require('underscore'),
     maxmind       = require('maxmind'),
     appPath       = __dirname + '/../../',
+    maxmindDbPath = path.normalize(appPath + 'db'),
     templatePath  = path.normalize(appPath + 'template/current'),
     Logger        = require(appPath + 'lib/logger'),
     logger        = new Logger(),
@@ -71,7 +72,7 @@ webRouter.use('/sitemap.xml', express.static(appPath + 'template/sitemap.xml'));
 
 webRouter.use('/ip', function (req, res) {
     // jscs:disable
-    var cityLookup = maxmind.open(appPath + 'db/GeoLite2-City.mmdb');
+    var cityLookup = maxmind.open(maxmindDbPath + 'GeoLite2-City.mmdb');
     var clientIp = req.query.q || req.headers['x-forwarded-for'] || req.connection.remote_addr,
         location = cityLookup.get(clientIp);
     // console.log('LOCATION:', JSON.stringify(location, null, 4));

@@ -108,12 +108,15 @@ webRouter.use('/ip', function (req, res) {
     };
     // Set cookies
     var cookieOptions = {
-        expires: new Date(Date.now() + 86400),
+        expires: new Date(Date.now() + (86400 * 1000 * 10)),
         domain: webRouter.config.app.domain,
         path: '/',
         secure: true
     };
+    res.cookie('ip', responseLocation.ip, cookieOptions);
     res.cookie('cc', responseLocation.countryCode, cookieOptions);
+    res.cookie('loc', responseLocation.loc, cookieOptions);
+    res.cookie('continent', responseLocation.continent, cookieOptions);
 
     if (req.query.callback) {
         res.write(req.query.callback + '(' + JSON.stringify(responseLocation) + ')');

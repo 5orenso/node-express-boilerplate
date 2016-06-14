@@ -74,13 +74,13 @@ webRouter.use('/ip', function (req, res) {
     // jscs:disable
     var cityLookup = maxmind.open(maxmindDbPath + '/GeoLite2-City.mmdb');
     var ipRegExp = /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/;
-    var remoteIp;
+    var remoteIp = '';
     if (typeof req.query.q === 'string' && req.query.q.match(ipRegExp)) {
         remoteIp = req.query.q;
     } else if (typeof req.headers['x-forwarded-for'] === 'string' && req.headers['x-forwarded-for'].match(ipRegExp)) {
         remoteIp = req.headers['x-forwarded-for'];
-    } else if (typeof req.headers.REMOTE_ADDR === 'string' && req.headers.REMOTE_ADDR.match(ipRegExp)) {
-        remoteIp = req.headers.REMOTE_ADDR;
+    } else if (typeof req.headers.remote_addr === 'string' && req.headers.remote_addr.match(ipRegExp)) {
+        remoteIp = req.headers.remote_addr;
     }
     var location = {
         location: {},
@@ -95,7 +95,7 @@ webRouter.use('/ip', function (req, res) {
 
     // console.log('LOCATION:', JSON.stringify(location, null, 4));
     var responseLocation = {
-        ip: req.headers.REMOTE_ADDR,
+        ip: req.headers.remote_addr,
         loc: location.location.latitude + ',' + location.location.longitude,
         timezone: location.location.time_zone,
         city: location.city.names.en,

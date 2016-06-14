@@ -75,7 +75,7 @@ webRouter.use('/ip', function (req, res) {
     var cityLookup = maxmind.open(maxmindDbPath + '/GeoLite2-City.mmdb');
     var ipRegExp = /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/;
     var remoteIp;
-    if (typeof req.query.q === 'string' || req.query.q.match(ipRegExp)) {
+    if (typeof req.query.q === 'string' && req.query.q.match(ipRegExp)) {
         remoteIp = req.query.q;
     } else if (typeof req.headers['x-forwarded-for'] === 'string' && req.headers['x-forwarded-for'].match(ipRegExp)) {
         remoteIp = req.headers['x-forwarded-for'];

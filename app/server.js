@@ -37,15 +37,19 @@ if (config) {
         threshold: 512
     }));
 
-    var webRouter = require('./routes/web');
-    webRouter.setConfig(config, {});
-
     var apiRouter = require('./routes/api');
     apiRouter.setConfig(config, {});
+
+    var ipRouter = require('./routes/ip');
+    ipRouter.setConfig(config, {});
+
+    var webRouter = require('./routes/web');
+    webRouter.setConfig(config, {});
 
     // Routes
     // * Add more routes here
     app.use('/api/', apiRouter);
+    app.use('/ip/', ipRouter);
     app.use('/', webRouter);
 
     // Start the server -------------------------------

@@ -1,7 +1,7 @@
 {
   "name": "node-boilerplate",
   "description": "A nice boilerplate with a template engine, unit tests, integration tests, code coverage, continuous integration, code analysis and a nice setup flow.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "homepage": "https://github.com/5orenso/node-express-boilerplate",
   "author": {
     "name": "Øistein Sørensen",
@@ -9,7 +9,7 @@
   },
   "main": "app/server.js",
   "engines": {
-    "node": ">=0.10.35"
+    "node": ">=4.3"
   },
   "scripts": {
     "test": "grunt"
@@ -17,34 +17,34 @@
   "devDependencies": {
     "buster": "^0.7.18",
     "buster-istanbul": "^0.1.13",
-    "grunt": "^0.4.5",
-    "grunt-buster": "^0.3.2",
-    "grunt-contrib-jshint": "^0.11.1",
-    "grunt-contrib-nodeunit": "^0.4.1",
-    "grunt-contrib-watch": "^0.6.1",
+    "grunt": "^1.0.1",
+    "grunt-buster": "^0.4.2",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-nodeunit": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
     "grunt-coveralls": "^1.0.0",
-    "grunt-jscs": "^1.6.0",
-    "grunt-jsdoc": "^1.1.0",
+    "grunt-jscs": "^3.0.1",
+    "grunt-jsdoc": "^2.1.0",
     "grunt-nodemon": "^0.4.0",
-    "grunt-shell": "~0.6.4",
+    "grunt-shell": "~1.3.0",
     "ink-docstrap": "^1.1.0",
-    "request": "~2.45.0"
+    "request": "~2.72.0"
   },
   "keywords": [],
   "dependencies": {
-    "body-parser": "~1.9.0",
-    "commander": "~2.3.0",
-    "compression": "~1.1.0",
-    "express": "~4.9.5",
-    "is-my-json-valid": "~2.10.1",
+    "body-parser": "~1.15.2",
+    "commander": "~2.9.0",
+    "compression": "~1.6.2",
+    "express": "~4.14.0",
+    "is-my-json-valid": "~2.13.1",
     "maxmind": "^1.1.0",
-    "morgan": "~1.5.0",
+    "morgan": "~1.7.0",
     "node-dogstatsd": "0.0.6",
     "swig": "~1.4.2",
-    "underscore": "~1.6.0",
+    "underscore": "~1.8.3",
     "underscore-contrib": "~0.3.0",
-    "when": "~3.4.4",
-    "winston": "~0.7.3",
-    "winston-syslog": "~0.2.5"
+    "when": "~3.7.7",
+    "winston": "~2.2.0",
+    "winston-syslog": "~1.2.1"
   }
 }

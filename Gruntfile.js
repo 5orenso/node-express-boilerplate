@@ -52,7 +52,7 @@ module.exports = function (grunt) {
             dev: {
                 options: {
                     file: 'app/server.js',
-                    args: ['-c', 'config/config-dist.js']
+                    args: ['-c', '../config/config-dist.js']
                 },
                 tasks: ['jshint', 'buster:unit']
             }

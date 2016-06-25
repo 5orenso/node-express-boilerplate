@@ -90,7 +90,7 @@
   "disallowSpaceAfterObjectKeys": true,
   "disallowQuotedKeysInObjects": "allButReserved",
 
-  "validateJSDoc": {
+  "jsDoc": {
     "checkParamNames": true,
     "requireParamTypes": true
   },

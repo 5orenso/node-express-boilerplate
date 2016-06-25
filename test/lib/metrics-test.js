@@ -33,7 +33,6 @@ buster.testCase('lib/logger', {
     setUp: function () {
     },
     tearDown: function () {
-        delete require.cache[require.resolve(appPath + 'lib/logger')];
     },
     'Test logger:': {
         'call set/get': function () {

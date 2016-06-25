@@ -13,8 +13,7 @@ var express       = require('express'),
     maxmind       = require('maxmind'),
     appPath       = path.normalize(__dirname + '/../../'),
     maxmindDbPath = appPath + 'db',
-    Logger        = require(appPath + 'lib/logger'),
-    logger        = new Logger(),
+    logger        = console.log,
     ApiUtil       = require(appPath + 'lib/api-util'),
     apiUtil       = new ApiUtil(),
     accessLogStream;
@@ -25,7 +24,7 @@ ipRouter.setConfig = function (conf, opt) {
     ipRouter.opt = opt;
     if (_.isObject(opt)) {
         if (_.isNumber(opt.workerId)) {
-            logger.set('workerId', opt.workerId);
+            logger('workerId', opt.workerId);
         }
     }
     if (_.isObject(conf)) {
@@ -39,7 +38,7 @@ ipRouter.setConfig = function (conf, opt) {
 };
 
 ipRouter.use(function(req, res, next) {
-    logger.log('info',
+    logger('info',
         req.method,
         req.url,
         req.get('Content-type'),
@@ -52,7 +51,6 @@ ipRouter.use(express.query()); // Parse queryString.
 //app.use(Express.cookieParser(opt.cookie.secret)); // Parse cookies.
 
 ipRouter.use('*', function (req, res) {
-    // jscs:disable
     var cityLookup = maxmind.open(maxmindDbPath + '/GeoLite2-City.mmdb');
     var ipRegExp = /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/;
     var remoteIp = '';
@@ -60,8 +58,10 @@ ipRouter.use('*', function (req, res) {
         remoteIp = req.query.q;
     } else if (typeof req.headers['x-forwarded-for'] === 'string' && req.headers['x-forwarded-for'].match(ipRegExp)) {
         remoteIp = req.headers['x-forwarded-for'];
+        // jscs:disable
     } else if (typeof req.headers.remote_addr === 'string' && req.headers.remote_addr.match(ipRegExp)) {
         remoteIp = req.headers.remote_addr;
+        // jscs:enable
     }
     var location = {
         location: {},
@@ -75,9 +75,11 @@ ipRouter.use('*', function (req, res) {
     }
 
     // console.log('LOCATION:', JSON.stringify(location, null, 4));
+    // jscs:disable
     var responseLocation = {
         ip: req.headers.remote_addr,
-        loc: (typeof location.location === 'object' ? (location.location.latitude + ',' + location.location.longitude) : ''),
+        loc: (typeof location.location === 'object' ?
+            (location.location.latitude + ',' + location.location.longitude) : ''),
         timezone: (typeof location.location === 'object' ? location.location.time_zone : ''),
         city: (typeof location.city === 'object' ? location.city.names.en : ''),
         postal: (typeof location.postal === 'object' ? location.postal.code : ''),
@@ -87,6 +89,7 @@ ipRouter.use('*', function (req, res) {
         countryCode: (typeof location.country === 'object' ? location.country.iso_code : ''),
         poweredBy: 'http://www.maxmind.com'
     };
+    // jscs:enable
     // Set cookies
     var cookieOptions = {
         expires: new Date(Date.now() + (86400 * 1000 * 10)),
@@ -125,7 +128,6 @@ ipRouter.use('*', function (req, res) {
     //        alert(data.ip);
     //    });
     //});
-    // jscs:enable
     res.end();
 });
 

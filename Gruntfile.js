@@ -115,5 +115,6 @@ module.exports = function (grunt) {
     grunt.registerTask('run', ['buster:unit', 'nodemon:dev']);
     grunt.registerTask('doc', ['jsdoc']);
     grunt.registerTask('artifact', ['shell', 'coveralls:real_coverage', 'jsdoc']);
+    grunt.registerTask('report', ['coveralls:real_coverage']);
 
 };

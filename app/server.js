@@ -1,7 +1,7 @@
 /*
  * https://github.com/5orenso
  *
- * Copyright (c) 2014 Øistein Sørensen
+ * Copyright (c) 2016 Øistein Sørensen
  * Licensed under the MIT license.
  */
 'use strict';
@@ -26,25 +26,20 @@ var configLoader = new ConfigLoader();
 var config = configLoader.load(commander.config);
 
 if (config) {
-    var Logger = require(appPath + 'lib/logger');
-    var logger = new Logger({
-        logLevel: config.logLevel
-    });
-
-    var app = express();
+    let app = express();
     app.use(bodyParser.json());
     app.use(compression({
         threshold: 512
     }));
 
-    var apiRouter = require('./routes/api');
-    apiRouter.setConfig(config, {});
+    let apiRouter = require('./routes/api');
+    apiRouter.setConfig(config);
 
-    var ipRouter = require('./routes/ip');
-    ipRouter.setConfig(config, {});
+    let ipRouter = require('./routes/ip');
+    ipRouter.setConfig(config);
 
-    var webRouter = require('./routes/web');
-    webRouter.setConfig(config, {});
+    let webRouter = require('./routes/web');
+    webRouter.setConfig(config);
 
     // Routes
     // * Add more routes here
@@ -53,9 +48,9 @@ if (config) {
     app.use('/', webRouter);
 
     // Start the server -------------------------------
-    var server = app.listen(config.app.port, function () {
-        var host = server.address().address;
-        var port = server.address().port;
-        logger.log('info', 'Something happens at http://' + host + ':' + port + '/');
+    var server = app.listen(config.app.port, () => {
+        let host = server.address().address;
+        let port = server.address().port;
+        console.log('info', 'Something happens at http://' + host + ':' + port + '/');
     });
 }

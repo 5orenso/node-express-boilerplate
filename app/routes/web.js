@@ -11,14 +11,10 @@ var express       = require('express'),
     fs            = require('fs'),
     path          = require('path'),
     _             = require('underscore'),
-    maxmind       = require('maxmind'),
-    appPath       = __dirname + '/../../',
-    maxmindDbPath = path.normalize(appPath + 'db'),
-    templatePath  = path.normalize(appPath + 'template/current'),
+    appPath       = path.normalize(__dirname + '/../../'),
+    templatePath  = appPath + 'template/current',
     Logger        = require(appPath + 'lib/logger'),
     logger        = new Logger(),
-    ApiUtil       = require(appPath + 'lib/api-util'),
-    apiUtil       = new ApiUtil(),
     accessLogStream;
 
 var webRouter = express.Router();
@@ -69,84 +65,6 @@ webRouter.use('/fonts/', express.static(appPath + 'template/current/fonts/'));
 webRouter.use('/favicon.ico', express.static(appPath + 'template/current/favicon.ico'));
 webRouter.use('/robots.txt', express.static(appPath + 'template/robots.txt'));
 webRouter.use('/sitemap.xml', express.static(appPath + 'template/sitemap.xml'));
-
-webRouter.use('/ip', function (req, res) {
-    // jscs:disable
-    var cityLookup = maxmind.open(maxmindDbPath + '/GeoLite2-City.mmdb');
-    var ipRegExp = /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/;
-    var remoteIp = '';
-    if (typeof req.query.q === 'string' && req.query.q.match(ipRegExp)) {
-        remoteIp = req.query.q;
-    } else if (typeof req.headers['x-forwarded-for'] === 'string' && req.headers['x-forwarded-for'].match(ipRegExp)) {
-        remoteIp = req.headers['x-forwarded-for'];
-    } else if (typeof req.headers.remote_addr === 'string' && req.headers.remote_addr.match(ipRegExp)) {
-        remoteIp = req.headers.remote_addr;
-    }
-    var location = {
-        location: {},
-        postal: {},
-        city: {},
-        country: {},
-        continent: {}
-    };
-    if (remoteIp.match(ipRegExp)) {
-        location = cityLookup.get(remoteIp);
-    }
-
-    // console.log('LOCATION:', JSON.stringify(location, null, 4));
-    var responseLocation = {
-        ip: req.headers.remote_addr,
-        loc: (typeof location.location === 'object' ? (location.location.latitude + ',' + location.location.longitude) : ''),
-        timezone: (typeof location.location === 'object' ? location.location.time_zone : ''),
-        city: (typeof location.city === 'object' ? location.city.names.en : ''),
-        postal: (typeof location.postal === 'object' ? location.postal.code : ''),
-        continent: (typeof location.continent === 'object' ? location.continent.names.en : ''),
-        continentCode: (typeof location.continent === 'object' ? location.continent.code : ''),
-        country: (typeof location.country === 'object' ? location.country.names.en : ''),
-        countryCode: (typeof location.country === 'object' ? location.country.iso_code : ''),
-        poweredBy: 'http://www.maxmind.com'
-    };
-    // Set cookies
-    var cookieOptions = {
-        expires: new Date(Date.now() + (86400 * 1000 * 10)),
-        domain: webRouter.config.app.domain,
-        path: '/',
-        secure: true
-    };
-    res.cookie('ip', responseLocation.ip, cookieOptions);
-    res.cookie('cc', responseLocation.countryCode, cookieOptions);
-    res.cookie('loc', responseLocation.loc, cookieOptions);
-    res.cookie('continent', responseLocation.continent, cookieOptions);
-
-    if (req.query.callback) {
-        res.write(req.query.callback + '(' + JSON.stringify(responseLocation) + ')');
-    } else {
-        apiUtil.sendHeaderResponse(req, res, {
-            httpStatusCode: 200,
-            contentLength: responseLocation.length
-        });
-        res.write(JSON.stringify(responseLocation, null, 4));
-    }
-    // Output:
-    ///**/ typeof callback === 'function' && callback({
-    //    "ip": "89.9.250.109",
-    //    "hostname": "No Hostname",
-    //    "city": "",
-    //    "region": "",
-    //    "country": "NO",
-    //    "loc": "59.9500,10.7500",
-    //    "org": "AS12929 TeliaSonera Norge AS"
-    //});
-    // Usage:
-    //$(document).ready(function () {
-    //    $.getJSON("https://l2.io/ip.js?var=myip", function (data) {
-    //        console.log(data);
-    //        alert(data.ip);
-    //    });
-    //});
-    // jscs:enable
-    res.end();
-});
 
 // Main route for html files.
 webRouter.get('/*', function(req, res) {

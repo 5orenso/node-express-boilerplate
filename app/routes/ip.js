@@ -19,7 +19,7 @@ var express       = require('express'),
     accessLogStream;
 
 var ipRouter = express.Router();
-ipRouter.setConfig = function (conf, opt) {
+ipRouter.setConfig = (conf, opt) => {
     ipRouter.config = conf;
     ipRouter.opt = opt;
     if (_.isObject(opt)) {
@@ -37,7 +37,7 @@ ipRouter.setConfig = function (conf, opt) {
     }
 };
 
-ipRouter.use(function(req, res, next) {
+ipRouter.use((req, res, next) => {
     logger('info',
         req.method,
         req.url,
@@ -50,7 +50,7 @@ ipRouter.use(function(req, res, next) {
 ipRouter.use(express.query()); // Parse queryString.
 //app.use(Express.cookieParser(opt.cookie.secret)); // Parse cookies.
 
-ipRouter.use('*', function (req, res) {
+ipRouter.use('*', (req, res) => {
     var cityLookup = maxmind.open(maxmindDbPath + '/GeoLite2-City.mmdb');
     var ipRegExp = /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/;
     var remoteIp = '';

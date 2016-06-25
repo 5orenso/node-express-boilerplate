@@ -17,7 +17,7 @@ var express       = require('express'),
     accessLogStream;
 
 var webRouter = express.Router();
-webRouter.setConfig = function (conf, opt) {
+webRouter.setConfig = (conf, opt) => {
     webRouter.config = conf;
     webRouter.opt = opt;
     if (_.isObject(opt)) {
@@ -46,7 +46,7 @@ function redirectSlash(req, res, next) {
 webRouter.use(express.query()); // Parse queryString.
 //app.use(Express.cookieParser(opt.cookie.secret)); // Parse cookies.
 
-webRouter.use(function(req, res, next) {
+webRouter.use((req, res, next) => {
     logger('info',
         req.method,
         req.url,
@@ -66,10 +66,10 @@ webRouter.use('/robots.txt', express.static(appPath + 'template/robots.txt'));
 webRouter.use('/sitemap.xml', express.static(appPath + 'template/sitemap.xml'));
 
 // Main route for html files.
-webRouter.get('/*', function(req, res) {
+webRouter.get('/*', (req, res) => {
     var requestPathname = req._parsedUrl.pathname;
     // Stop timer when response is transferred and finish.
-    //res.on('finish', function () {
+    //res.on('finish', () => {
     //});
     //console.log(req.headers);
     try {

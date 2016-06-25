@@ -45,7 +45,7 @@ var counter = {
 };
 
 var apiRouter = express.Router();
-apiRouter.setConfig = function (conf, opt) {
+apiRouter.setConfig = (conf, opt) => {
     apiRouter.config = conf;
     apiRouter.opt = opt;
     if (_.isObject(opt)) {
@@ -63,7 +63,7 @@ apiRouter.setConfig = function (conf, opt) {
     }
 };
 
-apiRouter.use(function(req, res, next) {
+apiRouter.use((req, res, next) => {
     logger('info',
         req.method,
         req.url,
@@ -80,12 +80,12 @@ apiRouter.use(express.query()); // Parse queryString.
 apiRouter.use(bodyParser.json());
 
 // Handle errors from JSON input
-apiRouter.use(function(err, req, res, next) {
+apiRouter.use((err, req, res, next) => {
     next();
 });
 
 // Handle browser lookups.
-apiRouter.options('/*', function(req, res) {
+apiRouter.options('/*', (req, res) => {
     var httpStatusCode = 200;
     counter.requests[httpStatusCode]++;
     apiUtil.sendHeaderResponse(req, res, {
@@ -98,73 +98,73 @@ apiRouter.options('/*', function(req, res) {
 
 // Idempotent
 // list/show object/s
-apiRouter.get('/*', function(req, res) {
-    var apiRequest = apiUtil.parseApiRequest(req);
+apiRouter.get('/*', (req, res) => {
+    let apiRequest = apiUtil.parseApiRequest(req);
     apiUtil.handleApiRequest(apiRequest)
-        .then(function (result) {
-            var httpStatusCode = result.httpStatusCode;
+        .then((result) => {
+            let httpStatusCode = result.httpStatusCode;
             counter.requests[httpStatusCode]++;
             apiUtil.sendJsonResponse(req, res, result);
         })
-        .catch(function (error) {
+        .catch((error) => {
             throw new Error(error);
         });
 });
 
 // create new or update partial
-apiRouter.post('/*', function(req, res) {
-    var apiRequest = apiUtil.parseApiRequest(req);
+apiRouter.post('/*', (req, res) => {
+    let apiRequest = apiUtil.parseApiRequest(req);
     apiUtil.handleApiRequest(apiRequest)
-        .then(function (result) {
-            var httpStatusCode = result.httpStatusCode;
+        .then((result) => {
+            let httpStatusCode = result.httpStatusCode;
             counter.requests[httpStatusCode]++;
             apiUtil.sendJsonResponse(req, res, result);
         })
-        .catch(function (error) {
+        .catch((error) => {
             throw new Error(error);
         });
 });
 
 // Idempotent
 // update all or one
-apiRouter.put('/*', function(req, res) {
-    var apiRequest = apiUtil.parseApiRequest(req);
+apiRouter.put('/*', (req, res) => {
+    let apiRequest = apiUtil.parseApiRequest(req);
     apiUtil.handleApiRequest(apiRequest)
-        .then(function (result) {
-            var httpStatusCode = result.httpStatusCode;
+        .then((result) => {
+            let httpStatusCode = result.httpStatusCode;
             counter.requests[httpStatusCode]++;
             apiUtil.sendJsonResponse(req, res, result);
         })
-        .catch(function (error) {
+        .catch((error) => {
             throw new Error(error);
         });
 });
 
 // update all or one
-apiRouter.patch('/*', function(req, res) {
-    var apiRequest = apiUtil.parseApiRequest(req);
+apiRouter.patch('/*', (req, res) => {
+    let apiRequest = apiUtil.parseApiRequest(req);
     apiUtil.handleApiRequest(apiRequest)
-        .then(function (result) {
-            var httpStatusCode = result.httpStatusCode;
+        .then((result) => {
+            let httpStatusCode = result.httpStatusCode;
             counter.requests[httpStatusCode]++;
             apiUtil.sendJsonResponse(req, res, result);
         })
-        .catch(function (error) {
+        .catch((error) => {
             throw new Error(error);
         });
 });
 
 // Idempotent
 // delete all or one
-apiRouter.delete('/*', function(req, res) {
-    var apiRequest = apiUtil.parseApiRequest(req);
+apiRouter.delete('/*', (req, res) => {
+    let apiRequest = apiUtil.parseApiRequest(req);
     apiUtil.handleApiRequest(apiRequest)
-        .then(function (result) {
-            var httpStatusCode = result.httpStatusCode;
+        .then((result) => {
+            let httpStatusCode = result.httpStatusCode;
             counter.requests[httpStatusCode]++;
             apiUtil.sendJsonResponse(req, res, result);
         })
-        .catch(function (error) {
+        .catch((error) => {
             throw new Error(error);
         });
 });

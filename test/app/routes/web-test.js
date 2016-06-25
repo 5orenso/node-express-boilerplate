@@ -27,7 +27,6 @@ buster.testCase('app/routes/web', {
         server = app.listen(port);
     },
     tearDown: function (done) {
-//        console.log('web: tearDown');
         // TODO: Shutdown webserver.
         server.close(function() {
             done();

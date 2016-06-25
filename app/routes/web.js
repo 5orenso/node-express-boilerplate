@@ -13,8 +13,7 @@ var express       = require('express'),
     _             = require('underscore'),
     appPath       = path.normalize(__dirname + '/../../'),
     templatePath  = appPath + 'template/current',
-    Logger        = require(appPath + 'lib/logger'),
-    logger        = new Logger(),
+    logger        = console.log,
     accessLogStream;
 
 var webRouter = express.Router();
@@ -23,7 +22,7 @@ webRouter.setConfig = function (conf, opt) {
     webRouter.opt = opt;
     if (_.isObject(opt)) {
         if (_.isNumber(opt.workerId)) {
-            logger.set('workerId', opt.workerId);
+            logger('workerId', opt.workerId);
         }
     }
     if (_.isObject(conf)) {
@@ -48,7 +47,7 @@ webRouter.use(express.query()); // Parse queryString.
 //app.use(Express.cookieParser(opt.cookie.secret)); // Parse cookies.
 
 webRouter.use(function(req, res, next) {
-    logger.log('info',
+    logger('info',
         req.method,
         req.url,
         req.get('Content-type'),
@@ -69,13 +68,9 @@ webRouter.use('/sitemap.xml', express.static(appPath + 'template/sitemap.xml'));
 // Main route for html files.
 webRouter.get('/*', function(req, res) {
     var requestPathname = req._parsedUrl.pathname;
-
     // Stop timer when response is transferred and finish.
-    res.on('finish', function () {
-
-    });
-
-    // End metrics
+    //res.on('finish', function () {
+    //});
     //console.log(req.headers);
     try {
         var tpl = swig.compileFile(templatePath + requestPathname);

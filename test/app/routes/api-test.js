@@ -32,7 +32,7 @@ buster.testCase('app/routes/api', {
             done();
         });
     },
-    'Test web routes:': {
+    'Test api routes for articles:': {
         'OPTIONS /articles': function (done) {
             request({
                 method: 'OPTIONS',
@@ -201,5 +201,176 @@ buster.testCase('app/routes/api', {
                 done();
             });
         }
+    },
+    'Test api routes for persons:': {
+        'OPTIONS /persons': function (done) {
+            request({
+                method: 'OPTIONS',
+                uri: 'http://127.0.0.1:' + port + '/persons',
+                body: JSON.stringify({})
+            }, function (error, response) {
+                //console.log(response.headers, body);
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(200, response.statusCode);
+                done();
+            });
+        },
+
+        'GET /persons': function (done) {
+            request({
+                method: 'GET',
+                uri: 'http://127.0.0.1:' + port + '/persons'
+                //body: JSON.stringify({})
+            }, function (error, response) {
+                //console.log(response.headers, body);
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(200, response.statusCode);
+                done();
+            });
+        },
+
+        'GET /persons/1/comments': function (done) {
+            request({
+                method: 'GET',
+                uri: 'http://127.0.0.1:' + port + '/persons/1/comments'
+                //body: JSON.stringify({})
+            }, function (error, response) {
+                //console.log(response.headers, body);
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(200, response.statusCode);
+                done();
+            });
+        },
+
+        'POST /persons': function (done) {
+            request({
+                method: 'POST',
+                uri: 'http://127.0.0.1:' + port + '/persons',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: {
+                        id: 'abc123',
+                        title: 'test article'
+                    }
+                })
+            }, function (error, response) {
+                //console.log(response.headers, body);
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(201, response.statusCode);
+                done();
+            });
+        },
+
+        'POST /persons/1/comments': function (done) {
+            request({
+                method: 'POST',
+                uri: 'http://127.0.0.1:' + port + '/persons/1/comments',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: {
+                        id: 'abc123',
+                        title: 'test article'
+                    }
+                })
+            }, function (error, response) {
+                //console.log(response.headers, body);
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(201, response.statusCode);
+                done();
+            });
+        },
+
+        'PATCH /persons/1': function (done) {
+            request({
+                method: 'PATCH',
+                uri: 'http://127.0.0.1:' + port + '/persons/1',
+                body: JSON.stringify({})
+            }, function (error, response) {
+                //console.log(response.headers, body);
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(200, response.statusCode);
+                done();
+            });
+        },
+
+        'PUT /persons/1': function (done) {
+            request({
+                method: 'PUT',
+                uri: 'http://127.0.0.1:' + port + '/persons/1',
+                body: JSON.stringify({})
+            }, function (error, response) {
+                //console.log(response.headers, body);
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(200, response.statusCode);
+                done();
+            });
+        },
+
+        'DELETE /persons/1': function (done) {
+            request({
+                method: 'DELETE',
+                uri: 'http://127.0.0.1:' + port + '/persons/1'
+            }, function (error, response) {
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(204, response.statusCode);
+                done();
+            });
+        },
+
+        'DELETE /persons/1/comments/1': function (done) {
+            request({
+                method: 'DELETE',
+                uri: 'http://127.0.0.1:' + port + '/persons/1/comments/1'
+            }, function (error, response) {
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(204, response.statusCode);
+                done();
+            });
+        },
+
+        'GET /not-found-endpoint': function (done) {
+            request({
+                method: 'GET',
+                uri: 'http://127.0.0.1:' + port + '/not-found-endpoint',
+                body: JSON.stringify({})
+            }, function (error, response) {
+                //console.log(response.headers, body);
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(501, response.statusCode);
+                done();
+            });
+        },
+
+        'POST /persons w/borked JSON': function (done) {
+            request({
+                method: 'POST',
+                uri: 'http://127.0.0.1:' + port + '/persons',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: 'broken JSON string.'
+            }, function (error, response) {
+                console.log(response.headers, response.body);
+                // TODO: Check response and compare.
+                assert.equals(responseHeaders['content-type'], response.headers['content-type']);
+                assert.equals(201, response.statusCode);
+                done();
+            });
+        }
     }
+
 });

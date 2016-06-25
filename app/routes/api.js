@@ -1,7 +1,7 @@
 /*
  * https://github.com/5orenso
  *
- * Copyright (c) 2014 Øistein Sørensen
+ * Copyright (c) 2016 Øistein Sørensen
  * Licensed under the MIT license.
  */
 'use strict';
@@ -13,19 +13,16 @@
  * @name API routes.
  * @author <a href="https://github.com/5orenso">Øistein Sørensen</a>
  */
-var express       = require('express'),
+var path = require('path'),
+    express       = require('express'),
     bodyParser    = require('body-parser'),
     morgan        = require('morgan'),
     fs            = require('fs'),
     _             = require('underscore-contrib'),
-    when          = require('when'),
-    appPath       = __dirname + '/../../',
-    Logger        = require(appPath + 'lib/logger'),
-    logger        = new Logger(),
+    appPath       = path.normalize(__dirname + '/../../'),
     ApiUtil       = require(appPath + 'lib/api-util'),
     apiUtil       = new ApiUtil(),
-    Metrics       = require(appPath + 'lib/metrics'),
-    metrics       = new Metrics(),
+    logger        = console.log,
     accessLogStream;
 
 var counter = {
@@ -53,11 +50,10 @@ apiRouter.setConfig = function (conf, opt) {
     apiRouter.opt = opt;
     if (_.isObject(opt)) {
         if (_.isNumber(opt.workerId)) {
-            logger.set('workerId', opt.workerId);
+            logger('workerId', opt.workerId);
         }
     }
     if (_.isObject(conf)) {
-        metrics.set('useDataDog', conf.useDataDog);
         if (_.isObject(conf.app) && _.isString(conf.app.logFile)) {
             // create a write stream (in append mode)
             accessLogStream = fs.createWriteStream(conf.app.logFile, {flags: 'a'});
@@ -68,7 +64,7 @@ apiRouter.setConfig = function (conf, opt) {
 };
 
 apiRouter.use(function(req, res, next) {
-    logger.log('info',
+    logger('info',
         req.method,
         req.url,
         req.get('Content-type'),
@@ -100,102 +96,75 @@ apiRouter.options('/*', function(req, res) {
     res.end();
 });
 
+// Idempotent
 // list/show object/s
 apiRouter.get('/*', function(req, res) {
-    res.metricsStart = metrics.start();
-    // Stop timer when response is transferred and finish.
-    res.on('finish', function () {
-        metrics.increment('node-express-boilerplate.count.route.get');
-        metrics.timing('node-express-boilerplate.route.get', res.metricsStart);
-    });
-    // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
-    when(apiUtil.handleApiRequest(apiRequest, apiRouter.config))
-        .done(function (result) {
+    apiUtil.handleApiRequest(apiRequest)
+        .then(function (result) {
             var httpStatusCode = result.httpStatusCode;
             counter.requests[httpStatusCode]++;
             apiUtil.sendJsonResponse(req, res, result);
-        }, function (error) {
+        })
+        .catch(function (error) {
             throw new Error(error);
         });
 });
 
-// create new
+// create new or update partial
 apiRouter.post('/*', function(req, res) {
-    res.metricsStart = metrics.start();
-    // Stop timer when response is transferred and finish.
-    res.on('finish', function () {
-        metrics.increment('node-express-boilerplate.count.route.post');
-        metrics.timing('node-express-boilerplate.route.post', res.metricsStart);
-    });
-    // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
-    when(apiUtil.handleApiRequest(apiRequest, apiRouter.config))
-        .done(function (result) {
+    apiUtil.handleApiRequest(apiRequest)
+        .then(function (result) {
             var httpStatusCode = result.httpStatusCode;
             counter.requests[httpStatusCode]++;
             apiUtil.sendJsonResponse(req, res, result);
-        }, function (error) {
+        })
+        .catch(function (error) {
             throw new Error(error);
         });
 });
 
+// Idempotent
 // update all or one
 apiRouter.put('/*', function(req, res) {
-    res.metricsStart = metrics.start();
-    // Stop timer when response is transferred and finish.
-    res.on('finish', function () {
-        metrics.increment('node-express-boilerplate.count.route.put');
-        metrics.timing('node-express-boilerplate.route.put', res.metricsStart);
-    });
-    // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
-    when(apiUtil.handleApiRequest(apiRequest, apiRouter.config))
-        .done(function (result) {
+    apiUtil.handleApiRequest(apiRequest)
+        .then(function (result) {
             var httpStatusCode = result.httpStatusCode;
             counter.requests[httpStatusCode]++;
             apiUtil.sendJsonResponse(req, res, result);
-        }, function (error) {
+        })
+        .catch(function (error) {
             throw new Error(error);
         });
 });
 
 // update all or one
 apiRouter.patch('/*', function(req, res) {
-    res.metricsStart = metrics.start();
-    // Stop timer when response is transferred and finish.
-    res.on('finish', function () {
-        metrics.increment('node-express-boilerplate.count.route.patch');
-        metrics.timing('node-express-boilerplate.route.patch', res.metricsStart);
-    });
-    // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
-    when(apiUtil.handleApiRequest(apiRequest, apiRouter.config))
-        .done(function (result) {
+    apiUtil.handleApiRequest(apiRequest)
+        .then(function (result) {
             var httpStatusCode = result.httpStatusCode;
             counter.requests[httpStatusCode]++;
             apiUtil.sendJsonResponse(req, res, result);
-        }, function (error) {
+        })
+        .catch(function (error) {
             throw new Error(error);
         });
 });
 
+// Idempotent
 // delete all or one
 apiRouter.delete('/*', function(req, res) {
-    res.metricsStart = metrics.start();
-    // Stop timer when response is transferred and finish.
-    res.on('finish', function () {
-        metrics.increment('node-express-boilerplate.count.route.delete');
-        metrics.timing('node-express-boilerplate.route.delete', res.metricsStart);
-    });
-    // End metrics
     var apiRequest = apiUtil.parseApiRequest(req);
-    when(apiUtil.handleApiRequest(apiRequest, apiRouter.config))
-        .done(function (result) {
+    apiUtil.handleApiRequest(apiRequest)
+        .then(function (result) {
             var httpStatusCode = result.httpStatusCode;
             counter.requests[httpStatusCode]++;
             apiUtil.sendJsonResponse(req, res, result);
-        }, function (error) {
+        })
+        .catch(function (error) {
             throw new Error(error);
         });
 });
@@ -217,13 +186,12 @@ module.exports = apiRouter;
 //
 //    GET    /api/<objects>           List all objects.
 //    GET    /api/<objects>/<id>      Get object with id = <id>.
-//POST   /api/<objects>           Insert 1 or multiple new new objects.
+//    POST   /api/<objects>           Insert 1 or multiple new new objects.
 //    POST   /api/<objects>/<id>      Error. Use PUT instead.
 //    PUT    /api/<objects>           Bulk update objects.
 //    PUT    /api/<objects>/<id>      Update this object.
 //    DELETE /api/<objects>           Delete multiple objects.
 //    DELETE /api/<objects>/<id>      Delete this object.
-//
 //
 //## Endpoint basic examples for objects owned by other object:
 //

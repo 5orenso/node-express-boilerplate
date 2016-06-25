@@ -1,7 +1,7 @@
 /*
  * https://github.com/5orenso
  *
- * Copyright (c) 2014 Øistein Sørensen
+ * Copyright (c) 2016 Øistein Sørensen
  * Licensed under the MIT license.
  */
 'use strict';
@@ -20,16 +20,10 @@ var webRouter = express.Router();
 webRouter.setConfig = (conf, opt) => {
     webRouter.config = conf;
     webRouter.opt = opt;
-    if (_.isObject(opt)) {
-        if (_.isNumber(opt.workerId)) {
-            logger('workerId', opt.workerId);
-        }
-    }
     if (_.isObject(conf)) {
         if (_.isObject(conf.app) && _.isString(conf.app.logFile)) {
-            // create a write stream (in append mode)
+            // create a write stream (in append mode) and setup the logger
             accessLogStream = fs.createWriteStream(conf.app.logFile, {flags: 'a'});
-            // setup the logger
             webRouter.use(morgan('combined', {stream: accessLogStream}));
         }
     }
@@ -68,10 +62,6 @@ webRouter.use('/sitemap.xml', express.static(appPath + 'template/sitemap.xml'));
 // Main route for html files.
 webRouter.get('/*', (req, res) => {
     var requestPathname = req._parsedUrl.pathname;
-    // Stop timer when response is transferred and finish.
-    //res.on('finish', () => {
-    //});
-    //console.log(req.headers);
     try {
         var tpl = swig.compileFile(templatePath + requestPathname);
         res.send(tpl({

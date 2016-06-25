@@ -172,17 +172,17 @@ apiRouter.delete('/*', (req, res) => {
 module.exports = apiRouter;
 
 // jscs:disable
-//# REST API endpoint basics
+// # REST API endpoint basics
 //
-//Design basics of this Rest API. This CMS server is designed with best practise in mind. All endpoints follows these strict guidelines. Don't mix verb and nounce.
+// Design basics of this Rest API. This CMS server is designed with best practise in mind. All endpoints follows these strict guidelines. Don't mix verb and nounce.
 //
-//| Resource           | POST create | GET read                | PUT/PATCH update             | DELETE
-//|:-------------------|:------------|:------------------------|:-----------------------|:-----------
-//| /api/article       | create new  | list all                | bulk update            | delete all
-//| /api/article/123   | error       | show object with id=123 | if exists update this  | delete this
+// | Resource           | POST create | GET read                | PUT/PATCH update             | DELETE
+// |:-------------------|:------------|:------------------------|:-----------------------|:-----------
+// | /api/article       | create new  | list all                | bulk update            | delete all
+// | /api/article/123   | error       | show object with id=123 | if exists update this  | delete this
 //
 //
-//## Endpoint basic examples for regular objects:
+// ## Endpoint basic examples for regular objects:
 //
 //    GET    /api/<objects>           List all objects.
 //    GET    /api/<objects>/<id>      Get object with id = <id>.
@@ -193,8 +193,9 @@ module.exports = apiRouter;
 //    DELETE /api/<objects>           Delete multiple objects.
 //    DELETE /api/<objects>/<id>      Delete this object.
 //
-//## Endpoint basic examples for objects owned by other object:
+// ## Endpoint basic examples for objects owned by other object:
 //
 //    GET    /api/<objects>/<id>/<sub-object>             List all sub-objects.
 //    GET    /api/<objects>/<id>/<sub-object>/<id>        Get sub-object with id = <id>.
-//# ...and then you get the pattern from the example above :)
+//
+// # ...and then you get the pattern from the example above :)

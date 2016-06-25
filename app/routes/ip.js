@@ -1,7 +1,7 @@
 /*
  * https://github.com/5orenso
  *
- * Copyright (c) 2014 Øistein Sørensen
+ * Copyright (c) 2016 Øistein Sørensen
  * Licensed under the MIT license.
  */
 'use strict';
@@ -22,16 +22,9 @@ var ipRouter = express.Router();
 ipRouter.setConfig = (conf, opt) => {
     ipRouter.config = conf;
     ipRouter.opt = opt;
-    if (_.isObject(opt)) {
-        if (_.isNumber(opt.workerId)) {
-            logger('workerId', opt.workerId);
-        }
-    }
     if (_.isObject(conf)) {
         if (_.isObject(conf.app) && _.isString(conf.app.logFile)) {
-            // create a write stream (in append mode)
             accessLogStream = fs.createWriteStream(conf.app.logFile, {flags: 'a'});
-            // setup the logger
             ipRouter.use(morgan('combined', {stream: accessLogStream}));
         }
     }
@@ -111,24 +104,26 @@ ipRouter.use('*', (req, res) => {
         });
         res.write(JSON.stringify(responseLocation, null, 4));
     }
-    // Output:
-    ///**/ typeof callback === 'function' && callback({
-    //    "ip": "89.9.250.109",
-    //    "hostname": "No Hostname",
-    //    "city": "",
-    //    "region": "",
-    //    "country": "NO",
-    //    "loc": "59.9500,10.7500",
-    //    "org": "AS12929 TeliaSonera Norge AS"
-    //});
-    // Usage:
-    //$(document).ready(function () {
-    //    $.getJSON("https://l2.io/ip.js?var=myip", function (data) {
-    //        console.log(data);
-    //        alert(data.ip);
-    //    });
-    //});
     res.end();
 });
 
 module.exports = ipRouter;
+
+// Example usage inside a HTML page:
+// Output:
+///**/ typeof callback === 'function' && callback({
+//    "ip": "89.9.250.109",
+//    "hostname": "No Hostname",
+//    "city": "",
+//    "region": "",
+//    "country": "NO",
+//    "loc": "59.9500,10.7500",
+//    "org": "AS12929 TeliaSonera Norge AS"
+//});
+// Usage:
+//$(document).ready(function () {
+//    $.getJSON("https://l2.io/ip.js?var=myip", function (data) {
+//        console.log(data);
+//        alert(data.ip);
+//    });
+//});

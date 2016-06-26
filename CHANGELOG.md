@@ -1,4 +1,6 @@
-* _2016-06-25_: Cleaning up the mess and adding some more comments. (HEAD -> master, origin/master, origin/HEAD) [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/384dc89a9581dd95b7b63961801d169e6dadffe4">view commit</a>
+* _2016-06-26_: Updated handlers. And added badge. (HEAD -> master, origin/master, origin/HEAD) [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/0b7605ed26298b8a0bdf14c1680894e9229d8e10">view commit</a>
+* _2016-06-25_: Updated changelog [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/a8e85d7663499dad2ee74bddb1c9b24e55e632fb">view commit</a>
+* _2016-06-25_: Cleaning up the mess and adding some more comments. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/384dc89a9581dd95b7b63961801d169e6dadffe4">view commit</a>
 * _2016-06-25_: Converting to arrow functions and using let instead of var some places. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/1fd54a9ef1adb75f27c2d6cf4025cfaae0381e4e">view commit</a>
 * _2016-06-25_: Removed logger. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/df6877b8a9f780a0561d594ac2187dfd74d61de6">view commit</a>
 * _2016-06-25_: Removed logger. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/4d83ef698a7b5233ebd3750b124afc52c0224cb7">view commit</a>

@@ -1,7 +1,6 @@
 # node-express-boilerplate
 [![Build Status](https://travis-ci.org/5orenso/node-express-boilerplate.svg?branch=master)](https://travis-ci.org/5orenso/node-express-boilerplate)
 [![Coverage Status](https://coveralls.io/repos/5orenso/node-express-boilerplate/badge.svg)](https://coveralls.io/r/5orenso/node-express-boilerplate)
-[![npm version](https://badge.fury.io/js/node-express-boilerplate.svg)](https://badge.fury.io/js/node-express-boilerplate)
 
 ## Yet another Node.js - Express boilerplate
 

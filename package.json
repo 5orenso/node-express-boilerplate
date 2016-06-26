@@ -1,8 +1,12 @@
 {
-  "name": "node-boilerplate",
+  "name": "node-express-boilerplate",
   "description": "A nice boilerplate with a template engine, unit tests, integration tests, code coverage, continuous integration, code analysis and a nice setup flow.",
   "version": "2.0.0",
   "homepage": "https://github.com/5orenso/node-express-boilerplate",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/5orenso/node-express-boilerplate"
+  },
   "author": {
     "name": "Øistein Sørensen",
     "email": "sorenso@gmail.com"

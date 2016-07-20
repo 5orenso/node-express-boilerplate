@@ -63,7 +63,8 @@ webRouter.use('/sitemap.xml', express.static(appPath + 'template/sitemap.xml'));
 webRouter.get('/*', (req, res) => {
     var requestPathname = req._parsedUrl.pathname;
     try {
-        var tpl = swig.compileFile(templatePath + requestPathname);
+        // var tpl = swig.compileFile(templatePath + requestPathname);
+        var tpl = swig.compileFile(templatePath + './404.html');
         res.send(tpl({
             title: 'Hello world',
             queryString: req.query,

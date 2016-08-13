@@ -86,6 +86,22 @@ $ npm install grunt-jscs --save-dev
 $ npm install grunt-jsdoc --save-dev
 $ npm install grunt-nodemon --save-dev
 $ npm install grunt-shell --save-dev
+$ npm install grunt-retire --save-dev
+```
+
+### Howto update NPM module
+
+1. Bump version inside `package.json`
+2. Push all changes to Github.
+3. Push all changes to npmjs.com: `$ bash ./npm-release.sh`.
+
+### Howto check for vulnerabilities in modules
+```bash
+# Install Node Security Platform CLI
+$ npm install nsp --global  
+
+# From inside your project directory
+$ nsp check  
 ```
 
 ### Howto upgrade modules
@@ -94,3 +110,18 @@ $ npm install -g npm-check-updates
 $ ncu -u
 $ npm install --save --no-optional
 ```
+
+### Versioning
+For transparency and insight into the release cycle, releases will be
+numbered with the follow format:
+
+<major>.<minor>.<patch>
+
+And constructed with the following guidelines:
+
+* Breaking backwards compatibility bumps the major
+* New additions without breaking backwards compatibility bumps the minor
+* Bug fixes and misc changes bump the patch
+
+For more information on semantic versioning, please visit http://semver.org/.
+

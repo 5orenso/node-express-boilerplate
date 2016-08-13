@@ -1,7 +1,7 @@
 {
   "name": "node-express-boilerplate",
   "description": "A nice boilerplate with a template engine, unit tests, integration tests, code coverage, continuous integration, code analysis and a nice setup flow.",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "homepage": "https://github.com/5orenso/node-express-boilerplate",
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "grunt-jscs": "^3.0.1",
     "grunt-jsdoc": "^2.1.0",
     "grunt-nodemon": "^0.4.0",
+    "grunt-retire": "^1.0.1",
     "grunt-shell": "~1.3.0",
     "ink-docstrap": "^1.1.0",
     "request": "~2.72.0",

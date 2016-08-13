@@ -21,12 +21,14 @@ module.exports = function (grunt) {
                 src: ['test/**/*.js']
             }
         },
+
         jscs: {
             main: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js'],
             options: {
                 config: ".jscsrc"
             }
         },
+
         jsdoc: {
             dist: {
                 src: ['lib/**/*.js', 'app/**/*.js'],
@@ -38,6 +40,7 @@ module.exports = function (grunt) {
                 }
             }
         },
+
         watch: {
             all: {
                 files: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js', 'config/*.js', 'template/**/*.html'],
@@ -45,10 +48,24 @@ module.exports = function (grunt) {
             }
         },
 
+        retire: {
+            js: ['app/**/*.js', 'lib/**/*.js'], /** Which js-files to scan. **/
+            node: ['node'], /** Which node directories to scan (containing package.json). **/
+            options: {
+                verbose: true,
+                packageOnly: true,
+                jsRepository: 'https://raw.github.com/RetireJS/retire.js/master/repository/jsrepository.json',
+                nodeRepository: 'https://raw.github.com/RetireJS/retire.js/master/repository/npmrepository.json',
+                ignore: 'tutorials',
+                ignorefile: '.retireignore' /** list of files to ignore **/
+            }
+        },
+
         buster: {
             unit: {
             }
         },
+
         nodemon: {
             dev: {
                 options: {
@@ -58,6 +75,7 @@ module.exports = function (grunt) {
                 tasks: ['jshint', 'buster:unit']
             }
         },
+
         shell: {
             getLatestTag: {
                 command: 'git describe --abbrev=0 --tags',
@@ -106,10 +124,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-jscs");
     grunt.loadNpmTasks("grunt-jsdoc");
     grunt.loadNpmTasks('grunt-coveralls');
+    grunt.loadNpmTasks('grunt-retire');
 
     // Default task.
     grunt.registerTask( "lint", [ "jshint", "jscs" ] );
-    grunt.registerTask('default', ['lint', 'buster:unit', 'jsdoc']);
+    grunt.registerTask('default', ['lint', 'buster:unit', 'jsdoc', 'retire']);
     grunt.registerTask('doc', ['jsdoc']);
     grunt.registerTask('test', 'buster:unit');
     grunt.registerTask('check', ['watch']);

@@ -35,12 +35,14 @@ buster.testCase('app/routes/ip', {
     },
     'Test web routes:': {
         '/': function (done) {
-            request('http://127.0.0.1:' + port + '/', function (error, response) {
+            request('http://127.0.0.1:' + port + '/', function (error, response, body) {
                 assert.equals(response.headers['content-type'], responseHeaders['content-type']);
+                var json = JSON.parse(body);
                 assert.equals(response.statusCode, 200);
+                assert.equals(json.loc, 'undefined,undefined');
+                assert.equals(json.poweredBy, 'http://www.maxmind.com');
                 done();
             });
-
         },
 
         '/ip?q=51.175.83.151': function (done) {

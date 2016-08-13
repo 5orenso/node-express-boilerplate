@@ -1,4 +1,14 @@
-* _2016-06-26_: Updated handlers. And added badge. (HEAD -> master, origin/master, origin/HEAD) [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/0b7605ed26298b8a0bdf14c1680894e9229d8e10">view commit</a>
+* _2016-08-13_: Extended ip test. (HEAD -> master, origin/master, origin/HEAD) [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/0646b49678812e4c320268f12ecd237a312f6622">view commit</a>
+* _2016-08-13_: Fixed bug inside web route. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/78f0b86e10b4e87a39517158b73dd768b0beec7e">view commit</a>
+* _2016-08-13_: Added missing file. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/754d5073e4c689d88a992f462ef93d275dac8647">view commit</a>
+* _2016-08-13_: Added retire.js and bumped verison. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/cd0a8428b57fa4c0f1a354a4237548e0adad95e9">view commit</a>
+* _2016-07-20_: Some more files. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/146420740cdeda222ff5149b69e177c50b80cb0d">view commit</a>
+* _2016-07-20_: Fixed path. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/60f6316972a98ddd43f0429421690c4c92379645">view commit</a>
+* _2016-07-20_: Added maintainance page. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/6d1f7a555f1583f2261b299bd00d6ba0db61ab19">view commit</a>
+* _2016-06-26_: Added github version badge. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/9dff0a9c101983888be7f9bee8bed1b838be23e0">view commit</a>
+* _2016-06-26_: Fixed package.json and removed npm version badge. Npm name was taken... [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/ac0730e8bbfa5b05cb7816dbea020a9224bca560">view commit</a>
+* _2016-06-26_: Updated changelog. (tag: 2.0.0) [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/1d7fff0aff8db22cd3e41c74d73f23b757b7ccee">view commit</a>
+* _2016-06-26_: Updated handlers. And added badge. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/0b7605ed26298b8a0bdf14c1680894e9229d8e10">view commit</a>
 * _2016-06-25_: Updated changelog [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/a8e85d7663499dad2ee74bddb1c9b24e55e632fb">view commit</a>
 * _2016-06-25_: Cleaning up the mess and adding some more comments. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/384dc89a9581dd95b7b63961801d169e6dadffe4">view commit</a>
 * _2016-06-25_: Converting to arrow functions and using let instead of var some places. [Øistein Sørensen] <a href="http://github.com/5orenso/node-express-boilerplate/commit/1fd54a9ef1adb75f27c2d6cf4025cfaae0381e4e">view commit</a>

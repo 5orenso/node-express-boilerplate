@@ -30,6 +30,8 @@ Travis CI is a hosted continuous integration service. It is integrated with GitH
 __Coveralls.io__
 Coveralls is a web service to help you track your code coverage over time, and ensure that all your new code is fully covered.
 
+__Retire__
+Scanner detecting the use of JavaScript libraries with known vulnerabilities.
 
 ## Getting started
 

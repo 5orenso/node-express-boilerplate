@@ -85,7 +85,7 @@ ipRouter.use('*', (req, res) => {
     // jscs:enable
     // Set cookies
     var cookieOptions = {
-        expires: new Date(Date.now() + (86400 * 1000 * 10)),
+        expires: new Date(Date.now() + (86400 * 1000 * 1)),
         domain: ipRouter.config.app.domain,
         path: '/',
         secure: true

@@ -5,7 +5,7 @@
  * Licensed under the MIT license.
  */
 'use strict';
-var express       = require('express'),
+let express       = require('express'),
     cookieParser  = require('cookie-parser'),
     morgan        = require('morgan'),
     swig          = require('swig'),
@@ -17,7 +17,7 @@ var express       = require('express'),
     logger        = console.log,
     accessLogStream;
 
-var webRouter = express.Router();
+let webRouter = express.Router();
 webRouter.setConfig = (conf, opt) => {
     webRouter.config = conf;
     webRouter.opt = opt;
@@ -62,9 +62,9 @@ webRouter.use('/sitemap.xml', express.static(appPath + 'template/sitemap.xml'));
 
 // Main route for html files.
 webRouter.get('/*', (req, res) => {
-    var requestPathname = req._parsedUrl.pathname;
+    let requestPathname = req._parsedUrl.pathname;
     try {
-        var tpl = swig.compileFile(templatePath + requestPathname);
+        let tpl = swig.compileFile(templatePath + requestPathname);
         res.send(tpl({
             title: 'Hello world',
             cookies: req.cookies,

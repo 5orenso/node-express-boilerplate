@@ -13,7 +13,7 @@
  * @name API routes.
  * @author <a href="https://github.com/5orenso">Øistein Sørensen</a>
  */
-var path = require('path'),
+let path = require('path'),
     express       = require('express'),
     bodyParser    = require('body-parser'),
     morgan        = require('morgan'),
@@ -25,7 +25,7 @@ var path = require('path'),
     logger        = console.log,
     accessLogStream;
 
-var counter = {
+let counter = {
     requests: {
         200: 0, // OK
         201: 0, // Created
@@ -44,7 +44,7 @@ var counter = {
     }
 };
 
-var apiRouter = express.Router();
+let apiRouter = express.Router();
 apiRouter.setConfig = (conf, opt) => {
     apiRouter.config = conf;
     apiRouter.opt = opt;
@@ -86,7 +86,7 @@ apiRouter.use((err, req, res, next) => {
 
 // Handle browser lookups.
 apiRouter.options('/*', (req, res) => {
-    var httpStatusCode = 200;
+    let httpStatusCode = 200;
     counter.requests[httpStatusCode]++;
     apiUtil.sendHeaderResponse(req, res, {
         httpStatusCode: httpStatusCode,

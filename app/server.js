@@ -10,7 +10,7 @@
  * See {@tutorial getting-started}
  * @name The main server.
  */
-var path = require('path'),
+let path = require('path'),
     commander = require('commander'),
     express = require('express'),
     bodyParser = require('body-parser'),
@@ -21,9 +21,9 @@ commander
     .option('-c, --config <file>', 'configuration file path', './config/config.js')
     .parse(process.argv);
 
-var ConfigLoader = require(appPath + 'lib/config-loader');
-var configLoader = new ConfigLoader();
-var config = configLoader.load(commander.config);
+let ConfigLoader = require(appPath + 'lib/config-loader');
+let configLoader = new ConfigLoader();
+let config = configLoader.load(commander.config);
 
 if (config) {
     let app = express();
@@ -48,7 +48,7 @@ if (config) {
     app.use('/', webRouter);
 
     // Start the server -------------------------------
-    var server = app.listen(config.app.port, () => {
+    let server = app.listen(config.app.port, () => {
         let host = server.address().address;
         let port = server.address().port;
         console.log('info', 'Something happens at http://' + host + ':' + port + '/');

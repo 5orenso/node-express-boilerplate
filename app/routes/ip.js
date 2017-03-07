@@ -5,7 +5,7 @@
  * Licensed under the MIT license.
  */
 'use strict';
-var express       = require('express'),
+let express       = require('express'),
     morgan        = require('morgan'),
     fs            = require('fs'),
     path          = require('path'),
@@ -18,7 +18,7 @@ var express       = require('express'),
     apiUtil       = new ApiUtil(),
     accessLogStream;
 
-var ipRouter = express.Router();
+let ipRouter = express.Router();
 ipRouter.setConfig = (conf, opt) => {
     ipRouter.config = conf;
     ipRouter.opt = opt;
@@ -44,9 +44,9 @@ ipRouter.use(express.query()); // Parse queryString.
 //app.use(Express.cookieParser(opt.cookie.secret)); // Parse cookies.
 
 ipRouter.use('*', (req, res) => {
-    var cityLookup = maxmind.open(maxmindDbPath + '/GeoLite2-City.mmdb');
-    var ipRegExp = /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/;
-    var remoteIp = '';
+    let cityLookup = maxmind.open(maxmindDbPath + '/GeoLite2-City.mmdb');
+    let ipRegExp = /^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/;
+    let remoteIp = '';
     if (typeof req.query.q === 'string' && req.query.q.match(ipRegExp)) {
         remoteIp = req.query.q;
     } else if (typeof req.headers['x-forwarded-for'] === 'string' && req.headers['x-forwarded-for'].match(ipRegExp)) {
@@ -56,7 +56,7 @@ ipRouter.use('*', (req, res) => {
         remoteIp = req.headers.remote_addr;
         // jscs:enable
     }
-    var location = {
+    let location = {
         location: {},
         postal: {},
         city: { names: {} },
@@ -69,7 +69,7 @@ ipRouter.use('*', (req, res) => {
 
     // console.log('LOCATION:', JSON.stringify(location, null, 4));
     // jscs:disable
-    var responseLocation = {
+    let responseLocation = {
         ip: req.headers.remote_addr,
         loc: (typeof location.location === 'object' ?
             (location.location.latitude + ',' + location.location.longitude) : ''),
@@ -84,7 +84,7 @@ ipRouter.use('*', (req, res) => {
     };
     // jscs:enable
     // Set cookies
-    var cookieOptions = {
+    let cookieOptions = {
         expires: new Date(Date.now() + (86400 * 1000 * 1)),
         domain: ipRouter.config.app.domain,
         path: '/',

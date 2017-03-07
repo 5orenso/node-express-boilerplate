@@ -6,6 +6,7 @@
  */
 'use strict';
 var express       = require('express'),
+    cookieParser  = require('cookie-parser'),
     morgan        = require('morgan'),
     swig          = require('swig'),
     fs            = require('fs'),
@@ -38,7 +39,7 @@ function redirectSlash(req, res, next) {
 }
 
 webRouter.use(express.query()); // Parse queryString.
-//app.use(Express.cookieParser(opt.cookie.secret)); // Parse cookies.
+webRouter.use(cookieParser()); // Parse cookies.
 
 webRouter.use((req, res, next) => {
     logger('info',
@@ -66,6 +67,8 @@ webRouter.get('/*', (req, res) => {
         var tpl = swig.compileFile(templatePath + requestPathname);
         res.send(tpl({
             title: 'Hello world',
+            cookies: req.cookies,
+            signedCookies: req.signedCookies,
             queryString: req.query,
             requestHeaders: req.headers
         }));

@@ -41,6 +41,7 @@
     "body-parser": "~1.15.2",
     "commander": "~2.9.0",
     "compression": "~1.6.2",
+    "cookie-parser": "^1.4.3",
     "express": "~4.14.0",
     "is-my-json-valid": "~2.13.1",
     "maxmind": "^1.1.0",

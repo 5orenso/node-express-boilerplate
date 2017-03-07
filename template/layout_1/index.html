@@ -5,6 +5,20 @@
 <body>
 <h1>{{ title }}</h1>
 <p>
+    <strong>Cookies: </strong>
+    <ul>
+    {% for key, val in cookies %}
+        <li>{{ key }} = {{ val }}</li>
+    {% endfor %}
+    </ul>
+
+    <strong>Signed cookies: </strong>
+    <ul>
+    {% for key, val in signedCookies %}
+        <li>{{ key }} = {{ val }}</li>
+    {% endfor %}
+    </ul>
+
     <strong>Query string: </strong>
     <ul>
     {% for key, val in queryString %}

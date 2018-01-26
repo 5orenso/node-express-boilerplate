@@ -4,10 +4,14 @@ node_js:
   - '9.4'
 matrix:
   fast_finish: true
+cache:
+  directories:
+    - node_modules
+    - $(npm config get prefix)/bin/grunt-cli
 before_install: npm install -g grunt-cli
 install:
-  - npm install
-  - npm install -g npm
+  - npm install --no-optional
 notifications:
     email:
         on_failure: always
+sudo: false

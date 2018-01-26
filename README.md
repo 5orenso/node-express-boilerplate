@@ -141,7 +141,7 @@ For more information on semantic versioning, please visit http://semver.org/.
 
 We ❤️ contributions and feedback.
 
-If you want to contribute, please check out the CONTRIBUTING.md file.
+If you want to contribute, please check out the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 If you have any question or suggestion create an issue.
 

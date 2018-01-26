@@ -1,0 +1,15 @@
+{% include 'inc/_header.html' %}
+{% include 'inc/_menu_top.html' %}
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+            {% include 'inc/_menu_left.html' %}
+        </nav>
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+            {% include 'inc/_index.html' %}
+        </main>
+    </div>
+</div>
+
+{% include 'inc/_footer.html' %}

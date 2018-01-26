@@ -9,17 +9,14 @@ This time with a template engine, unit tests, integration tests, code coverage, 
 
 Helper modules in use:
 
-__JSHint__
-A tool that helps to detect errors and potential problems in your JavaScript code.
-
 __Grunt__
 The Javascript task runner. In one word: automation. The less work you have to do when performing repetitive tasks like minification, compilation, unit testing, linting, etc, the easier your job becomes.
 
 __Buster.js__
 A browser JavaScript testing toolkit. It does browser testing with browser automation (think JsTestDriver), QUnit style static HTML page testing, testing in headless browsers (PhantomJS, jsdom), and more.
 
-__JSCS__
-JSCS is a code style linter for programmatically enforcing your style guide.
+__ESLint__
+ESLint is a code style linter for programmatically enforcing your style guide.
 
 __Istanbul__
 A Javascript code coverage tool written in JS.
@@ -134,9 +131,6 @@ For more information on semantic versioning, please visit http://semver.org/.
 ## Contributions and feedback:
 
 We ❤️ contributions and feedback.
-
 If you want to contribute, please check out the CONTRIBUTING.md file.
-
-If you have any question or suggestion create an issue or ask about it in the gitter chat.
-
+If you have any question or suggestion create an issue.
 Bug reports should always be done with a new issue.

@@ -4,53 +4,46 @@
  * Copyright (c) 2016 Øistein Sørensen
  * Licensed under the MIT license.
  */
+
 'use strict';
+
 /**
  * @fileOverview Loading config, mouting routes and starting http server.
  * See {@tutorial getting-started}
  * @name The main server.
  */
-let path = require('path'),
-    commander = require('commander'),
-    express = require('express'),
-    bodyParser = require('body-parser'),
-    compression = require('compression'),
-    appPath = path.normalize(__dirname + '/../');
+const commander = require('commander');
+const express = require('express');
+const bodyParser = require('body-parser');
+const compression = require('compression');
 
 commander
-    .option('-c, --config <file>', 'configuration file path', './config/config.js')
+    .option('-c, --config <file>', 'configuration file path', './config/config-dist.js')
     .parse(process.argv);
 
-let ConfigLoader = require(appPath + 'lib/config-loader');
-let configLoader = new ConfigLoader();
-let config = configLoader.load(commander.config);
+// eslint-disable-next-line
+const config = require(commander.config);
 
 if (config) {
-    let app = express();
+    const app = express();
     app.use(bodyParser.json());
     app.use(compression({
-        threshold: 512
+        threshold: 512,
     }));
 
-    let apiRouter = require('./routes/api');
-    apiRouter.setConfig(config);
-
-    let ipRouter = require('./routes/ip');
-    ipRouter.setConfig(config);
-
+    // eslint-disable-next-line
     let webRouter = require('./routes/web');
     webRouter.setConfig(config);
 
     // Routes
     // * Add more routes here
-    app.use('/api/', apiRouter);
-    app.use('/ip/', ipRouter);
     app.use('/', webRouter);
 
     // Start the server -------------------------------
-    let server = app.listen(config.app.port, () => {
-        let host = server.address().address;
-        let port = server.address().port;
-        console.log('info', 'Something happens at http://' + host + ':' + port + '/');
+    const server = app.listen(config.app.port, () => {
+        const serverAddress = server.address();
+        const { address: host } = serverAddress;
+        const { port } = serverAddress;
+        console.log('info', `Something happens at http://${host}:${port}/`);
     });
 }

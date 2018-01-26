@@ -7,19 +7,13 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        jshint: {
+        eslint: {
             options: {
-                jshintrc: '.jshintrc'
+                config: '.eslintrc.json',
+                reset: true
             },
-            gruntfile: {
-                src: 'Gruntfile.js'
-            },
-            lib: {
-                src: ['app/**/*.js', 'lib/**/*.js']
-            },
-            test: {
-                src: ['test/**/*.js']
-            }
+            target: ['app/**/*.js', 'lib/**/*.js']
+            // target: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js']
         },
 
         jscs: {
@@ -43,8 +37,15 @@ module.exports = function (grunt) {
 
         watch: {
             all: {
-                files: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js', 'config/*.js', 'template/**/*.html'],
+                files: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js', 'config/*.js', 'template/**/**/*.html'],
                 tasks: ['lint', 'buster:unit']
+            }
+        },
+
+        watchtest: {
+            all: {
+                files: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js', 'config/*.js', 'template/**/**/*.html'],
+                tasks: ['buster:unit'],
             }
         },
 
@@ -69,10 +70,27 @@ module.exports = function (grunt) {
         nodemon: {
             dev: {
                 options: {
-                    file: 'app/server.js',
-                    args: ['-c', '../config/config-dist.js']
+                    script: 'app/server.js',
+                    ext: 'js,json,html',
+                    ignore: ['node_modules/**', 'sessions/**'],
+                    args: ['-c', '../config/config-dist.js'],
+                    env: {
+                        nodeEnv: 'development'
+                    }
                 },
-                tasks: ['jshint', 'buster:unit']
+                tasks: ['lint', 'buster:unit']
+            },
+            dev_local: {
+                options: {
+                    script: 'app/server.js',
+                    ext: 'js,json,html',
+                    ignore: ['node_modules/**', 'template/current/**', 'sessions/**'],
+                    args: ['-c', '../config/config-local.js'],
+                    env: {
+                        nodeEnv: 'development'
+                    }
+                },
+                tasks: ['lint', 'buster:unit']
             }
         },
 
@@ -107,6 +125,7 @@ module.exports = function (grunt) {
                 ].join('&&')
             }
         },
+
         coveralls: {
             real_coverage: {
                 src: 'coverage/lcov.info'
@@ -116,25 +135,29 @@ module.exports = function (grunt) {
 
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+    // grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.renameTask('watch', 'watchtest');
+    // Load it again.
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-buster');
-    grunt.loadNpmTasks("grunt-jscs");
+    // grunt.loadNpmTasks("grunt-jscs");
     grunt.loadNpmTasks("grunt-jsdoc");
     grunt.loadNpmTasks('grunt-coveralls');
     grunt.loadNpmTasks('grunt-retire');
+    grunt.loadNpmTasks('grunt-eslint');
 
     // Default task.
-    grunt.registerTask( "lint", [ "jshint", "jscs" ] );
+    grunt.registerTask('es', ['eslint']);
+    grunt.registerTask( "lint", [ "eslint" ] );
     grunt.registerTask('default', ['lint', 'buster:unit', 'jsdoc', 'retire']);
     grunt.registerTask('doc', ['jsdoc']);
     grunt.registerTask('test', 'buster:unit');
     grunt.registerTask('check', ['watch']);
     grunt.registerTask('run', ['buster:unit', 'nodemon:dev']);
-    grunt.registerTask('doc', ['jsdoc']);
+    grunt.registerTask('run-local', ['buster:unit', 'nodemon:dev_local']);
     grunt.registerTask('artifact', ['shell', 'coveralls:real_coverage', 'jsdoc']);
     grunt.registerTask('report', ['coveralls:real_coverage']);
-
 };

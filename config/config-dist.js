@@ -3,7 +3,7 @@ module.exports = {
     debug: true,
     logLevel: 'debug', // debug, verbose, info
     app: {
-        port: 8000,
+        port: 8888,
         logFile: '/tmp/access.log',
         domain: '.example.com'
     },

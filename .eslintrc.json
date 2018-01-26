@@ -1,0 +1,19 @@
+{
+    "env": {
+        "node": true
+    },
+    "extends": "airbnb-base",
+    "plugins": [
+        "import"
+    ],
+    "rules": {
+        "indent": ["error", 4],
+        "no-prototype-builtins": 0,
+        "max-len": ["error", 120],
+        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
+        "global-require": "warn",
+        "import/no-dynamic-require": "warn",
+        "strict": 0,
+        "no-console": 0
+    }
+}

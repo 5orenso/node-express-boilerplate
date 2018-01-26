@@ -80,15 +80,18 @@ $ npm install buster --save-dev
 $ npm install buster-istanbul --save-dev
 $ npm install grunt --save-dev
 $ npm install grunt-buster --save-dev
-$ npm install grunt-contrib-jshint --save-dev
 $ npm install grunt-contrib-nodeunit --save-dev
 $ npm install grunt-contrib-watch --save-dev
 $ npm install grunt-coveralls --save-dev
-$ npm install grunt-jscs --save-dev
 $ npm install grunt-jsdoc --save-dev
 $ npm install grunt-nodemon --save-dev
 $ npm install grunt-shell --save-dev
 $ npm install grunt-retire --save-dev
+$ npm install ink-docstrap --save-dev
+$ npm install grunt-eslint --save-dev
+$ npm install eslint-plugin-import --save-dev
+$ npm install eslint-config-airbnb --save-dev
+$ npm install eslint-config-airbnb-base --save-dev
 ```
 
 ### Howto update NPM module
@@ -127,3 +130,13 @@ And constructed with the following guidelines:
 
 For more information on semantic versioning, please visit http://semver.org/.
 
+
+## Contributions and feedback:
+
+We ❤️ contributions and feedback.
+
+If you want to contribute, please check out the CONTRIBUTING.md file.
+
+If you have any question or suggestion create an issue or ask about it in the gitter chat.
+
+Bug reports should always be done with a new issue.

@@ -50,6 +50,15 @@ $ npm install
 $ ./run-server.sh
 ```
 
+Now you can browse your shiny new webpage. Open your favorite browser and navigate to one of these pages:
+
+- http://localhost:8888/index.html
+- http://localhost:8888/blog.html
+- http://localhost:8888/readme
+- http://localhost:8888/example/index.html
+- http://localhost:8888/example/blog.html
+- http://localhost:8888/example/readme
+
 This will restart the server every time a file has changed.
 
 In addition to this I recommend using Grunt to watch your files and perform code analysis and run tests every time a file changes:
@@ -131,6 +140,9 @@ For more information on semantic versioning, please visit http://semver.org/.
 ## Contributions and feedback:
 
 We ❤️ contributions and feedback.
+
 If you want to contribute, please check out the CONTRIBUTING.md file.
+
 If you have any question or suggestion create an issue.
+
 Bug reports should always be done with a new issue.

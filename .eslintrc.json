@@ -2,7 +2,10 @@
     "env": {
         "node": true
     },
-    "extends": "airbnb-base",
+    "extends": [
+        "airbnb-base",
+        "standard-preact"
+    ],
     "plugins": [
         "import"
     ],
@@ -11,9 +14,20 @@
         "no-prototype-builtins": 0,
         "max-len": ["error", 120],
         "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 1 }],
+        "import/extensions": ["error", "never", { "packages": "always" }],
         "global-require": "warn",
         "import/no-dynamic-require": "warn",
         "strict": 0,
-        "no-console": 0
+        "no-console": 0,
+        "react/jsx-indent": ["error", 4],
+        "quotes": ["error", "single",{ "allowTemplateLiterals": true }]
+    },
+    "globals": {
+        "fetch": false,
+        "poly": false,
+        "document": false,
+        "window": false,
+        "localStorage": false,
+        "history": false
     }
 }

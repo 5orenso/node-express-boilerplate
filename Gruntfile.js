@@ -12,15 +12,12 @@ module.exports = function (grunt) {
                 config: '.eslintrc.json',
                 reset: true
             },
-            target: ['app/**/*.js', 'lib/**/*.js']
-            // target: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js']
-        },
-
-        jscs: {
-            main: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js'],
-            options: {
-                config: ".jscsrc"
-            }
+            target: [
+                'app/**/*.js',
+                'lib/**/*.js',
+                'preact/*/lib/**/*.js',
+                'preact/*/src/**/*.js'
+            ]
         },
 
         jsdoc: {
@@ -37,15 +34,33 @@ module.exports = function (grunt) {
 
         watch: {
             all: {
-                files: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js', 'config/*.js', 'template/**/**/*.html'],
-                tasks: ['lint', 'buster:unit']
+                files: [
+                    'app/**/*.js',
+                    'lib/**/*.js',
+                    'test/**/*.js',
+                    'config/*.js',
+                    'template/**/**/*.html',
+                    'preact/*/__tests__/**/*.js',
+                    'preact/*/lib/**/*.js',
+                    'preact/*/src/**/*.js'
+                ],
+                tasks: ['lint', 'buster:unit', 'shell:jest']
             }
         },
 
         watchtest: {
             all: {
-                files: ['app/**/*.js', 'lib/**/*.js', 'test/**/*.js', 'config/*.js', 'template/**/**/*.html'],
-                tasks: ['buster:unit'],
+                files: [
+                    'app/**/*.js',
+                    'lib/**/*.js',
+                    'test/**/*.js',
+                    'config/*.js',
+                    'template/**/**/*.html',
+                    'preact/*/__tests__/**/*.js',
+                    'preact/*/lib/**/*.js',
+                    'preact/*/src/**/*.js'
+                ],
+                tasks: ['buster:unit', 'shell:jest'],
             }
         },
 
@@ -123,6 +138,9 @@ module.exports = function (grunt) {
                     'mv ./node_modules2 ./node_modules',
                     'bash changelog.sh'
                 ].join('&&')
+            },
+            jest: {
+                command: 'npm run test-jest --silent'
             }
         },
 
@@ -135,7 +153,6 @@ module.exports = function (grunt) {
 
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
-    // grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.renameTask('watch', 'watchtest');
     // Load it again.
@@ -143,7 +160,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-shell');
     grunt.loadNpmTasks('grunt-buster');
-    // grunt.loadNpmTasks("grunt-jscs");
     grunt.loadNpmTasks("grunt-jsdoc");
     grunt.loadNpmTasks('grunt-coveralls');
     grunt.loadNpmTasks('grunt-retire');
@@ -152,7 +168,7 @@ module.exports = function (grunt) {
     // Default task.
     grunt.registerTask('es', ['eslint']);
     grunt.registerTask( "lint", [ "eslint" ] );
-    grunt.registerTask('default', ['lint', 'buster:unit', 'jsdoc', 'retire']);
+    grunt.registerTask('default', ['lint', 'buster:unit', 'shell:jest', 'jsdoc', 'retire']);
     grunt.registerTask('doc', ['jsdoc']);
     grunt.registerTask('test', 'buster:unit');
     grunt.registerTask('check', ['watch']);
@@ -160,4 +176,5 @@ module.exports = function (grunt) {
     grunt.registerTask('run-local', ['buster:unit', 'nodemon:dev_local']);
     grunt.registerTask('artifact', ['shell', 'coveralls:real_coverage', 'jsdoc']);
     grunt.registerTask('report', ['coveralls:real_coverage']);
+    grunt.registerTask('jest', ['shell:jest']);
 };

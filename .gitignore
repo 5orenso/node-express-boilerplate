@@ -36,3 +36,4 @@ config/config.js
 artifact/
 .DS_Store
 doc/
+**/__snapshots__/

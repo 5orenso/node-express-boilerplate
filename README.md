@@ -5,7 +5,7 @@
 
 ## Yet another Node.js - Express boilerplate
 
-This time with a template engine, unit tests, integration tests, code coverage, continuous integration, code analysis, code style and a nice setup flow.
+This time with a template engine (Swig), Preact, unit tests, integration tests, code coverage, continuous integration, code analysis, code style and a nice setup flow.
 
 Helper modules in use:
 
@@ -14,6 +14,9 @@ The Javascript task runner. In one word: automation. The less work you have to d
 
 __Buster.js__
 A browser JavaScript testing toolkit. It does browser testing with browser automation (think JsTestDriver), QUnit style static HTML page testing, testing in headless browsers (PhantomJS, jsdom), and more.
+
+__Jest__
+A browser JavaScript testing toolkit. Jest is used by Facebook to test all JavaScript code including React applications. One of Jest's philosophies is to provide an integrated "zero-configuration" experience.
 
 __ESLint__
 ESLint is a code style linter for programmatically enforcing your style guide.
@@ -80,26 +83,6 @@ $ grunt
 $ open doc/index.html
 ```
 
-### HOWTO upgrade dev environment
-```bash
-$ npm install buster --save-dev
-$ npm install buster-istanbul --save-dev
-$ npm install grunt --save-dev
-$ npm install grunt-buster --save-dev
-$ npm install grunt-contrib-nodeunit --save-dev
-$ npm install grunt-contrib-watch --save-dev
-$ npm install grunt-coveralls --save-dev
-$ npm install grunt-jsdoc --save-dev
-$ npm install grunt-nodemon --save-dev
-$ npm install grunt-shell --save-dev
-$ npm install grunt-retire --save-dev
-$ npm install ink-docstrap --save-dev
-$ npm install grunt-eslint --save-dev
-$ npm install eslint-plugin-import --save-dev
-$ npm install eslint-config-airbnb --save-dev
-$ npm install eslint-config-airbnb-base --save-dev
-```
-
 ### Howto update NPM module
 
 1. Bump version inside `package.json`
@@ -117,9 +100,9 @@ $ nsp check
 
 ### Howto upgrade modules
 ```bash
-$ npm install -g npm-check-updates
-$ ncu -u
-$ npm install --save --no-optional
+$ sudo npm install -g npm-check-updates
+$ ncu -u -a
+$ npm install --no-optional
 ```
 
 ### Versioning

@@ -1,0 +1,10 @@
+node_modules
+.vscode
+**/__snapshots__/
+
+build/bundle.js.map
+build/favicon.ico
+build/sw.js
+build/index.html
+build/manifest.json
+build/push-manifest.json

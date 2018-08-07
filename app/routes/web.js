@@ -1,7 +1,7 @@
 /*
  * https://github.com/5orenso
  *
- * Copyright (c) 2016 Øistein Sørensen
+ * Copyright (c) 2016-2018 Øistein Sørensen
  * Licensed under the MIT license.
  */
 
@@ -13,11 +13,9 @@ const bodyParser = require('body-parser');
 const useragent = require('express-useragent');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-// const swig = require('swig');
 const fs = require('fs');
 const path = require('path');
 const _ = require('underscore');
-// const Markdown = require('../../lib/markdown');
 
 const appPath = path.normalize(`${__dirname}/../../`);
 // const templatePath = `${appPath}template/current`;
@@ -46,6 +44,10 @@ function redirectSlash(req, res, next) {
         next();
     }
 }
+function setConfig(req, res, next) {
+    req.config = webRouter.config;
+    next();
+}
 
 webRouter.use(compression());
 webRouter.use(bodyParser.urlencoded({
@@ -61,6 +63,7 @@ webRouter.use((req, res, next) => {
     next(); // make sure we go to the next routes and don't stop here
 });
 
+webRouter.use(setConfig);
 webRouter.use(redirectSlash);
 webRouter.use('/js/', express.static(`${appPath}template/current/js/`));
 webRouter.use('/img/', express.static(`${appPath}template/current/img/`));

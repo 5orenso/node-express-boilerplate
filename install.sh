@@ -19,15 +19,16 @@ read PATH
 
 # Copying files
 /bin/cp -v .coveralls-dist.yml $PATH/.
+/bin/cp -v .eslintrc.json $PATH/.
 /bin/cp -v .gitignore $PATH/.
-/bin/cp -v .jscsrc $PATH/.
-/bin/cp -v .jshintrc $PATH/.
+/bin/cp -v .retireignore.yml $PATH/.
 /bin/cp -v .travis.yml $PATH/.
 /bin/cp -v Gruntfile.js $PATH/.
 /bin/cp -v LICENSE $PATH/.
 /bin/cp -v README.md $PATH/.
 /bin/cp -v changelog.sh $PATH/.
 /bin/cp -v install.sh $PATH/.
+/bin/cp -v npm-release.sh $PATH/.
 /bin/cp -v package.json $PATH/.
 /bin/cp -v report-code-coverage.sh $PATH/.
 /bin/cp -v run-server.sh $PATH/.

@@ -140,7 +140,7 @@ module.exports = function (grunt) {
                 ].join('&&')
             },
             jest: {
-                command: 'npm run test-jest --silent'
+                command: 'npm run test-jest --silent -- -u'
             }
         },
 

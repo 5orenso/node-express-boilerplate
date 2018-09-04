@@ -83,6 +83,11 @@ $ grunt
 $ open doc/index.html
 ```
 
+### HOWTO fix eslint issues
+```bash
+$ eslint --fix lib/utilities.js
+```
+
 ### Howto update NPM module
 
 1. Bump version inside `package.json`
@@ -129,3 +134,12 @@ If you want to contribute, please check out the [CONTRIBUTING.md](CONTRIBUTING.m
 If you have any question or suggestion create an issue.
 
 Bug reports should always be done with a new issue.
+
+
+## Other Resources
+
+* [AWS Basic setup with Cloudformation](https://github.com/5orenso/aws-cloudformation-base)
+* [AWS Lambda boilerplate](https://github.com/5orenso/aws-lambda-boilerplate)
+* [Automated AWS Lambda update](https://github.com/5orenso/aws-lambda-autodeploy-lambda)
+* [AWS API Gateway setup with Cloudformation](https://github.com/5orenso/aws-cloudformation-api-gateway)
+* [AWS IoT setup with Cloudformation](https://github.com/5orenso/aws-cloudformation-iot)

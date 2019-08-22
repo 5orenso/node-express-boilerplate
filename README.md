@@ -9,12 +9,6 @@ This time with a template engine (Swig), Preact, unit tests, integration tests, 
 
 Helper modules in use:
 
-__Grunt__
-The Javascript task runner. In one word: automation. The less work you have to do when performing repetitive tasks like minification, compilation, unit testing, linting, etc, the easier your job becomes.
-
-__Buster.js__
-A browser JavaScript testing toolkit. It does browser testing with browser automation (think JsTestDriver), QUnit style static HTML page testing, testing in headless browsers (PhantomJS, jsdom), and more.
-
 __Jest__
 A browser JavaScript testing toolkit. Jest is used by Facebook to test all JavaScript code including React applications. One of Jest's philosophies is to provide an integrated "zero-configuration" experience.
 
@@ -38,9 +32,8 @@ Scanner detecting the use of JavaScript libraries with known vulnerabilities.
 #### Prerequisite
 
 ```bash
-$ npm install -g buster
-$ npm install -g grunt
-$ npm install -g istanbul
+$ npm install -g nodemon
+$ npm install -g eslint
 ```
 
 #### Clone repo and start server
@@ -50,7 +43,7 @@ To run the server in development mode:
 $ git clone https://github.com/5orenso/node-express-boilerplate.git
 $ cd node-express-boilerplate
 $ npm install
-$ ./run-server.sh
+$ npm run start
 ```
 
 Now you can browse your shiny new webpage. Open your favorite browser and navigate to one of these pages:
@@ -73,14 +66,8 @@ Now, go ahead and add modules into the ./app/routes/web.js or add more routes to
 
 ### HOWTO check the test coverage
 ```bash
-$ grunt test
+$ npm test
 $ open coverage/lcov-report/index.html
-```
-
-### HOWTO view jsdoc documentation
-```bash
-$ grunt
-$ open doc/index.html
 ```
 
 ### HOWTO fix eslint issues
